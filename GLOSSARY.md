@@ -19,6 +19,8 @@ canonical name.
 | External, editable fact store | **non-parametric memory / knowledge graph / RAG** | retrieval; KR |
 | Revisiting uncertain items offline | **replay buffer + offline re-evaluation** | continual learning; RL |
 | Cheap, reversible, environment-shaped weight tweak | **PEFT / LoRA adapter** | parameter-efficient fine-tuning |
+| Resolving a surface mention to a canonical KB entry | **entity linking / entity normalization** | NLP; knowledge graphs |
+| Mapping varied surface strings to one canonical form / closed enum | **lexical normalization**; **controlled vocabulary** | NLP; ontologies |
 | "Is the answer about the entity/type actually asked?" | **NLI / entailment**; faithfulness check | NLP |
 | Update only on novel/surprising input | **active learning / uncertainty sampling / novelty detection** | active learning |
 | Losing old skills when learning new ones | **catastrophic forgetting** | continual learning |

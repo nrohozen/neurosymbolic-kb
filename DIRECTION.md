@@ -185,6 +185,26 @@ An **honesty meta-test** asserts every `error_contradictory` really is UNSAT aga
 > finding from the M2 run). So filtering and canonicalization are **complementary**: the
 > filter's reach grows as canonicalization and seed coverage grow.
 
+### M2.1 — canonicalization (attack the measured extraction bottleneck)
+
+The M2 run located the bottleneck: a competent base extracts the right *meaning* in the wrong *surface form* (`bubble_sort`≠`bubblesort`, `last_in_first_out_ordering`≠`lifo`, `sorts_in_place`≠`in_place`). The standard fix is **entity linking / lexical normalization** (mention → canonical KB entry) plus **normalization to a controlled vocabulary** (the closed property/complexity enums) — see GLOSSARY.
+
+`src/canonicalization.py` is a **pure, deterministic post-processor** (no training — L2; no LLM call), derived from the *schema's semantics*, NOT from the corpus's specific mistakes (memorizing the eval's error strings would be cheating):
+- **Entity linking (open set):** canonical key = lowercase + strip non-alphanumeric; exact-key match to the known entity set (conservative — no fuzzy matching, so no false merges); unknown mentions fall back to lexical-normal form.
+- **Controlled-vocabulary mapping (closed sets):** negation-aware keyword rules encoding what each enum value *means*, plus an asymptotic-notation normalizer (`O(n log n)`/`linearithmic` → `o_nlogn`). Unmappable closed-slot values are dropped.
+
+**Out of scope (honest bounds):** *structure drift* (a property folded into an `is_a` object) and *hallucinated extras* not in the source text — canonicalization fixes surface forms, not mis-parses or faithfulness. If the residual error is dominated by these, that is the finding and the next bottleneck.
+
+**Pre-commit, then measure (DRAFT thresholds — approved 2026-06-29, per L3):**
+
+| # | Metric | What it tests | Go / kill |
+|---|---|---|---|
+| 13 | **Canonicalized precision** — live extraction, post-canon, vs gold | does surface-form normalization recover precision | go ≥ **0.80**, kill < 0.60 |
+| 14 | **Canonicalized recall** — post-canon, vs gold | does it recover the missed-by-surface-form truths | go ≥ **0.70**, kill < 0.50 |
+| 15 | **Idempotence / soundness** — `canonicalize(t) == t` for every gold & seed triple | already-canonical input is untouched; no entity false-merge | go = **1.00** (must) |
+
+**Kill criterion.** 13 < 0.60 or 14 < 0.50 → surface forms weren't the real bottleneck (or the approach failed) — reconsider. 15 < 1.00 → the canonicalizer corrupts good data → bug, fix before trusting 13/14. A **MID** on 13/14 is itself informative: canonicalization is necessary-but-not-sufficient and the residual (structure drift / faithfulness) is the next lever. The run reports raw → canon side by side so the lift is explicit; no tuning the alias rules to the eval (L3).
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
