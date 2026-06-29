@@ -167,6 +167,24 @@ An **honesty meta-test** asserts every `error_contradictory` really is UNSAT aga
 
 **Kill criterion.** 10 < 0.80 → the deductive immune system is broken (it scored 1.00 on M1 metric 2, so this would be a regression). 11 > 0.05 → unsound (drops truths) → the "for free" claim is **falsified**. 12 ≤ 0 → filtering buys nothing even where errors are catchable → **falsified**. Order-dependence is a known limitation (a `true` fact can be dropped if a prior batch candidate already pushed the graph to a state where it conflicts) — measured on natural order and demonstrated separately, not hidden.
 
+> **RESULT — M2-filter run (2026-06-29), clingo only, 24 labeled candidates (10 true /
+> 10 contradictory / 4 consistent-error):**
+> metric 10 (error-catch) = **1.00**, metric 11 (false-drop) = **0.00**, metric 12
+> (precision lift) = **+0.30** (0.42 → 0.71, zero LLM calls) → **10–12 all GO.**
+> The honest ceiling held exactly: **0/4** consistent-but-wrong errors caught — by
+> construction the filter cannot see errors that don't violate a constraint. The
+> order-dependence limitation is real and reproduced in a focused test (an unseeded
+> entity given two complexities: the first-arriving one survives).
+>
+> Reading: the consistency-filter claim is **confirmed where it applies** — the deductive
+> immune system that caught planted contradictions in M1 (metric 2 = 1.00) also catches
+> *contradiction-shaped extraction errors*, soundly and for free. Its leverage is bounded
+> by two things M2 measured: (a) errors must be contradiction-shaped — wrong-but-consistent
+> facts pass (the 0/4 ceiling); (b) the extracted entity must be *canonicalized to a
+> constrained constant*, or it conflicts with nothing (the `bubble_sort`≠`bubblesort`
+> finding from the M2 run). So filtering and canonicalization are **complementary**: the
+> filter's reach grows as canonicalization and seed coverage grow.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.

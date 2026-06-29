@@ -25,6 +25,9 @@ py -3.12 -m venv .venv
 
 # Milestone 2 (extraction path, metrics 6-9): needs a local Ollama for extraction.
 .venv\Scripts\python -m eval.run_m2
+
+# Milestone 2-filter (consistency filter in isolation, metrics 10-12): clingo only, offline.
+.venv\Scripts\python -m eval.run_m2_filter
 ```
 
 ## Tests
@@ -50,8 +53,11 @@ py -3.12 -m venv .venv
 | `eval/m1_cases.jsonl` | held-out test set: comparisons, conceptual claims, planted clashes, consistent controls |
 | `eval/run_m2.py` | computes M2 extraction metrics 6–9 (raw P/R + consistency-filtered P + recall retention) |
 | `eval/m2_corpus.jsonl` | hand-labeled extraction corpus: source texts + gold triples |
+| `eval/run_m2_filter.py` | computes M2-filter metrics 10–12 (filter in isolation: catch rate, false-drop, precision lift) |
+| `eval/m2_filter_cases.jsonl` | labeled candidate triples (true / contradictory / consistent-error) with honesty meta-test |
 
-> Status: **M1 built + passing** (metrics 2–5 GO; see DIRECTION.md). **M2 (extraction path)
-> built + measured** — raw P/R = 0.59/0.59 (MID); the consistency filter is correct but inert
-> on a clean corpus (errors are canonicalization, not contradictions). See the M2 RESULT block
-> in DIRECTION.md for the full finding.
+> Status: **M1 built + passing** (metrics 2–5 GO). **M2 (extraction path) built + measured** —
+> raw P/R = 0.59/0.59 (MID); errors are canonicalization, not contradictions. **M2-filter
+> (consistency filter in isolation) built + passing** — metrics 10–12 GO (catch 1.00,
+> false-drop 0.00, precision lift +0.30), with the consistent-error ceiling held honestly.
+> See the RESULT blocks in DIRECTION.md for the full findings.
