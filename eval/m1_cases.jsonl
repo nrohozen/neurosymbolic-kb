@@ -1,0 +1,40 @@
+{"type": "comparison", "s": "quicksort", "o": "bubblesort", "gold": true}
+{"type": "comparison", "s": "bubblesort", "o": "quicksort", "gold": false}
+{"type": "comparison", "s": "binary_search", "o": "linear_search", "gold": true}
+{"type": "comparison", "s": "linear_search", "o": "binary_search", "gold": false}
+{"type": "comparison", "s": "mergesort", "o": "bubblesort", "gold": true}
+{"type": "comparison", "s": "binary_search", "o": "quicksort", "gold": true}
+{"type": "comparison", "s": "quicksort", "o": "mergesort", "gold": false}
+{"type": "comparison", "s": "bubblesort", "o": "binary_search", "gold": false}
+{"type": "conceptual", "s": "mergesort", "p": "stable", "gold": true}
+{"type": "conceptual", "s": "quicksort", "p": "stable", "gold": false}
+{"type": "conceptual", "s": "bubblesort", "p": "stable", "gold": true}
+{"type": "conceptual", "s": "quicksort", "p": "in_place", "gold": true}
+{"type": "conceptual", "s": "mergesort", "p": "in_place", "gold": false}
+{"type": "conceptual", "s": "stack", "p": "lifo", "gold": true}
+{"type": "conceptual", "s": "queue", "p": "fifo", "gold": true}
+{"type": "conceptual", "s": "heapsort", "p": "stable", "gold": false}
+{"type": "contradiction", "facts": [["quicksort", "has_complexity", "o_n2"]], "gold_unsat": true, "note": "conflicts seed quicksort=o_nlogn"}
+{"type": "contradiction", "facts": [["mergesort", "has_complexity", "o_n"]], "gold_unsat": true}
+{"type": "contradiction", "facts": [["bubblesort", "has_complexity", "o_nlogn"]], "gold_unsat": true}
+{"type": "contradiction", "facts": [["binary_search", "has_complexity", "o_n"]], "gold_unsat": true}
+{"type": "contradiction", "facts": [["linear_search", "has_complexity", "o_1"]], "gold_unsat": true}
+{"type": "contradiction", "facts": [["quicksort", "has_property", "stable"]], "gold_unsat": true, "note": "conflicts not_stable"}
+{"type": "contradiction", "facts": [["mergesort", "has_property", "not_stable"]], "gold_unsat": true}
+{"type": "contradiction", "facts": [["bubblesort", "has_property", "not_stable"]], "gold_unsat": true}
+{"type": "contradiction", "facts": [["quicksort", "has_property", "not_in_place"]], "gold_unsat": true}
+{"type": "contradiction", "facts": [["mergesort", "has_property", "in_place"]], "gold_unsat": true}
+{"type": "contradiction", "facts": [["stack", "is_a", "queue"], ["queue", "is_a", "stack"]], "gold_unsat": true, "note": "is_a cycle"}
+{"type": "contradiction", "facts": [["binary_search_tree", "is_a", "red_black_tree"]], "gold_unsat": true, "note": "cycle with seed"}
+{"type": "contradiction", "facts": [["sorting_algorithm", "is_a", "quicksort"]], "gold_unsat": true, "note": "cycle with seed"}
+{"type": "contradiction", "facts": [["algorithm", "is_a", "sorting_algorithm"]], "gold_unsat": true, "note": "cycle with seed"}
+{"type": "contradiction", "facts": [["o_n2", "faster_step", "o_1"]], "gold_unsat": true, "note": "complexity order cycle"}
+{"type": "contradiction", "facts": [["abstract_data_type", "is_a", "stack"]], "gold_unsat": true, "note": "cycle with seed"}
+{"type": "consistent", "facts": [["heapsort", "has_complexity", "o_nlogn"], ["heapsort", "is_a", "sorting_algorithm"]]}
+{"type": "consistent", "facts": [["avl_tree", "is_a", "binary_search_tree"]]}
+{"type": "consistent", "facts": [["counting_sort", "has_complexity", "o_n"], ["counting_sort", "has_property", "stable"]]}
+{"type": "consistent", "facts": [["deque", "is_a", "abstract_data_type"]]}
+{"type": "consistent", "facts": [["selection_sort", "has_complexity", "o_n2"], ["selection_sort", "is_a", "sorting_algorithm"]]}
+{"type": "consistent", "facts": [["heapsort", "has_property", "in_place"]]}
+{"type": "consistent", "facts": [["b_tree", "is_a", "data_structure"]]}
+{"type": "consistent", "facts": [["quicksort", "has_property", "comparison_based"]]}

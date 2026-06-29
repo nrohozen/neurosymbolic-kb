@@ -1,0 +1,2 @@
+clingo>=5.6
+pytest>=7.0
