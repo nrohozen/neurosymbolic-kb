@@ -35,19 +35,22 @@ def consistency_filter(
     trusted_atoms: Sequence[str],
     candidates: Iterable["Triple"],
 ) -> FilterResult:
-    """Vet `candidates` against `trusted_atoms`, keeping only those that leave the graph
-    satisfiable. Exact duplicates of an already-kept atom are skipped (kept once)."""
+    """Partition `candidates` into the ones that leave the graph satisfiable (`kept`) and
+    the ones that fire an integrity constraint (`dropped`). A candidate equal to a trusted
+    fact is consistent, hence kept; a within-batch exact duplicate is collapsed (judged
+    once). This is an *admissibility* test, not a novelty test — deduping against an
+    existing graph is `KnowledgeGraph.add`'s job, not the filter's."""
     result = FilterResult()
     kept_atoms: List[str] = []
-    seen: set[str] = set(trusted_atoms)
+    judged: set[str] = set()
     for triple in candidates:
         atom = triple.as_atom()
-        if atom in seen:
-            continue  # already trusted or already kept; no new information
+        if atom in judged:
+            continue  # same extracted atom seen earlier in this batch
+        judged.add(atom)
         if engine.is_consistent(list(trusted_atoms) + kept_atoms + [atom]):
             result.kept.append(triple)
             kept_atoms.append(atom)
-            seen.add(atom)
         else:
             result.dropped.append(triple)
     return result

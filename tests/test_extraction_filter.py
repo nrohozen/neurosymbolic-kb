@@ -48,7 +48,14 @@ def test_keeps_all_independent_candidates(engine):
     assert len(r.kept) == 3 and not r.dropped
 
 
-def test_skips_duplicate_of_a_trusted_fact(engine):
+def test_candidate_equal_to_a_trusted_fact_is_kept(engine):
+    # a restatement of a seed is consistent -> kept (admissibility, not novelty)
     trusted = ["is_a(stack,abstract_data_type)"]
     r = consistency_filter(engine, trusted, [Triple("stack", "is_a", "abstract_data_type")])
-    assert not r.kept and not r.dropped
+    assert r.kept == [Triple("stack", "is_a", "abstract_data_type")] and not r.dropped
+
+
+def test_within_batch_exact_duplicate_is_collapsed(engine):
+    t = Triple("avl_tree", "is_a", "binary_search_tree")
+    r = consistency_filter(engine, [], [t, t])
+    assert r.kept == [t] and not r.dropped
