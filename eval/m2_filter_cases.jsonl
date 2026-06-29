@@ -1,0 +1,30 @@
+# Labeled candidate triples for the M2-filter test (metrics 10-12). label is one of:
+#   true                - consistent with ground truth; the filter MUST keep it
+#   error_contradictory - false AND contradiction-shaped vs the seeds; filter SHOULD drop
+#   error_consistent    - false but NOT contradiction-shaped (unseeded entity); filter CANNOT drop
+# Every error_contradictory conflicts with a SEED directly (drops regardless of order);
+# true and error_consistent are mutually consistent. The honesty meta-test verifies all this.
+{"s": "quicksort", "r": "is_a", "o": "sorting_algorithm", "label": "true"}
+{"s": "mergesort", "r": "has_complexity", "o": "o_nlogn", "label": "true"}
+{"s": "quicksort", "r": "has_property", "o": "comparison_based", "label": "true"}
+{"s": "heapsort", "r": "has_complexity", "o": "o_nlogn", "label": "true"}
+{"s": "heapsort", "r": "is_a", "o": "sorting_algorithm", "label": "true"}
+{"s": "avl_tree", "r": "is_a", "o": "binary_search_tree", "label": "true"}
+{"s": "counting_sort", "r": "has_property", "o": "stable", "label": "true"}
+{"s": "selection_sort", "r": "has_complexity", "o": "o_n2", "label": "true"}
+{"s": "binary_search", "r": "has_property", "o": "comparison_based", "label": "true"}
+{"s": "red_black_tree", "r": "is_a", "o": "binary_search_tree", "label": "true"}
+{"s": "bubblesort", "r": "has_complexity", "o": "o_nlogn", "label": "error_contradictory"}
+{"s": "quicksort", "r": "has_complexity", "o": "o_n2", "label": "error_contradictory"}
+{"s": "mergesort", "r": "has_complexity", "o": "o_n", "label": "error_contradictory"}
+{"s": "binary_search", "r": "has_complexity", "o": "o_n", "label": "error_contradictory"}
+{"s": "quicksort", "r": "has_property", "o": "stable", "label": "error_contradictory"}
+{"s": "mergesort", "r": "has_property", "o": "not_stable", "label": "error_contradictory"}
+{"s": "quicksort", "r": "has_property", "o": "not_in_place", "label": "error_contradictory"}
+{"s": "mergesort", "r": "has_property", "o": "in_place", "label": "error_contradictory"}
+{"s": "binary_search_tree", "r": "is_a", "o": "red_black_tree", "label": "error_contradictory"}
+{"s": "linear_search", "r": "has_complexity", "o": "o_1", "label": "error_contradictory"}
+{"s": "heapsort", "r": "has_property", "o": "stable", "label": "error_consistent"}
+{"s": "timsort", "r": "has_complexity", "o": "o_n2", "label": "error_consistent"}
+{"s": "insertion_sort", "r": "has_property", "o": "not_stable", "label": "error_consistent"}
+{"s": "shellsort", "r": "has_complexity", "o": "o_logn", "label": "error_consistent"}
