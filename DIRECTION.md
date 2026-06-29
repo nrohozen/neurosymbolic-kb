@@ -118,6 +118,34 @@ M1 proved the solver backend (metrics 2/3/5) and the weak-oracle *tie-breaking* 
 
 > Caveat (inspectability): the incremental filter is **order-dependent** — when two mutually consistent-with-seeds candidates jointly violate a constraint, which one survives depends on arrival order. M2 documents this; full minimal-conflict-set localization (TMS/ATMS) is later work, not M2.
 
+> **RESULT — first run (2026-06-29), qwen2.5:7b via Ollama, 15-text corpus / 41 gold triples:**
+> raw extraction precision = **0.59**, recall = **0.59** (both **MID** — below go, above kill).
+> The filter dropped **0** candidates → filtered precision = raw, recall retention = 1.00, so
+> metrics **8/9 are *vacuously* GO**: the filter neither helped nor hurt. The headline claim
+> ("the solver recovers extraction precision for free") is therefore **untested, not
+> confirmed** — *none of the extraction errors were contradiction-shaped* against the seeds.
+>
+> Error breakdown (diagnostic) — the failures are overwhelmingly **canonicalization, not
+> reasoning**; the base grasped every text but emitted non-schema surface forms:
+> - **entity drift** — `bubble_sort` ≠ `bubblesort` (this one mismatch sank the whole
+>   bubblesort entry, all facts semantically correct) — and it is *why the filter caught
+>   nothing*: a fact under a different constant can't violate a seed constraint.
+> - **value drift** — `sorts_in_place`/`operates_in_place` ≠ `in_place`,
+>   `last_in_first_out_ordering` ≠ `lifo`, `first_in__first_out` ≠ `fifo`.
+> - **structure drift** — property folded into the object: `is_a(quicksort,
+>   comparison_based_sorting_algorithm)` instead of `is_a … sorting_algorithm` + `has_property
+>   … comparison_based`.
+> - **a few world-knowledge extras** not stated in the text (`binary_search_tree`/
+>   `red_black_tree` `has_complexity o_logn`).
+>
+> Reading: the M1-domain extraction bottleneck is **entity linking / lexical normalization to
+> the controlled vocabulary** (a standard NLP sub-task), *not* the base model's semantic
+> competence — true precision/recall are materially higher than 0.59 once surface forms are
+> canonicalized. And the consistency filter, though correct (unit-tested), is **inert on a
+> clean corpus + competent model**; it earns its keep where errors *are* contradiction-shaped
+> (planted clashes; domain-3 config drift), not on first-pass extraction here. No tuning to
+> make 6–9 look better (L3) — the honest next move is a canonicalization step, then re-measure.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
