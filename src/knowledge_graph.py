@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable, Iterator
 
@@ -28,10 +28,24 @@ def normalize(term: str) -> str:
 
 
 @dataclass(frozen=True)
+class Provenance:
+    """L5: how a fact entered the graph. `method` is the standard data-provenance kind
+    (`seed` / `extracted` / `derived`); `detail` records what admitted it — a source id
+    for extraction, the rule or vote for derivation."""
+
+    method: str  # "seed" | "extracted" | "derived"
+    detail: str = ""
+
+
+@dataclass(frozen=True)
 class Triple:
     s: str
     r: str
     o: str
+    # Provenance rides along but is NOT part of identity: a fact is the same fact
+    # regardless of how it was admitted, so eq/hash (and thus dedup, set membership,
+    # and the M1 atom comparisons) ignore it.
+    provenance: "Provenance | None" = field(default=None, compare=False)
 
     def as_atom(self) -> str:
         return f"{normalize(self.r)}({normalize(self.s)},{normalize(self.o)})"
@@ -58,7 +72,7 @@ class KnowledgeGraph:
             if not line or line.startswith("#"):
                 continue
             d = json.loads(line)
-            kg.add(Triple(d["s"], d["r"], d["o"]))
+            kg.add(Triple(d["s"], d["r"], d["o"], provenance=Provenance("seed", str(path))))
         return kg
 
     def add(self, triple: Triple) -> bool:

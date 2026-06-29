@@ -10,7 +10,7 @@ import re
 import urllib.request
 from typing import Callable, List
 
-from .knowledge_graph import Triple
+from .knowledge_graph import Provenance, Triple
 
 Transport = Callable[[str, dict], dict]
 
@@ -50,7 +50,9 @@ class RelationExtractor:
         self.host = host.rstrip("/")
         self._transport = transport or _urllib_transport
 
-    def extract(self, text: str) -> List[Triple]:
+    def extract(self, text: str, source: str = "") -> List[Triple]:
+        """Extract candidate triples from `text`. Each is stamped with `extracted`
+        provenance recording `source` (the corpus id / document the text came from), per L5."""
         payload = {
             "model": self.model,
             "messages": [{"role": "user", "content": _PROMPT.format(text=text)}],
@@ -62,10 +64,11 @@ class RelationExtractor:
             content = resp["message"]["content"]
         except Exception:
             return []
-        return self._parse(content)
+        return self._parse(content, source)
 
     @staticmethod
-    def _parse(content: str) -> List[Triple]:
+    def _parse(content: str, source: str = "") -> List[Triple]:
+        prov = Provenance("extracted", source)
         triples: List[Triple] = []
         for blob in _OBJ.findall(content):
             try:
@@ -76,5 +79,5 @@ class RelationExtractor:
                 continue
             if d["r"] not in _ALLOWED_RELATIONS:
                 continue
-            triples.append(Triple(str(d["s"]), str(d["r"]), str(d["o"])))
+            triples.append(Triple(str(d["s"]), str(d["r"]), str(d["o"]), provenance=prov))
         return triples
