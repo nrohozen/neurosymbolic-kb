@@ -220,6 +220,32 @@ The M2 run located the bottleneck: a competent base extracts the right *meaning*
 > faithfulness** (e.g. a property folded into an `is_a` object); that, not canonicalization,
 > is the next lever if extraction P/R needs to climb further.
 
+## Milestone 3 — domain 2 (a codebase): "is the engine swappable, and does the deductive core transfer?"
+
+The load-bearing architectural bet (Milestone 0): moving domains = **author a new schema + register a new oracle**, with *the engine, the typed triple store, and the contradiction logic untouched*. If domain 2 forces a rewrite of any of those, the abstraction leaked. M3 is the first test of that bet — and the curriculum's first oracle weakening (execution → compiler/AST: still deterministic and a real artifact, but now over static structure).
+
+**Prior art / standard terms (do NOT reinvent the syntactic half):** CodeQL, Glean, Doop, Soufflé, tree-sitter, ArchUnit. Target is a **Python** codebase (this repo, dogfooding), so the mature syntactic tool is the **stdlib `ast`** module — used as the deterministic fact source, no new parser dependency. The architecture-rule check is the **ArchUnit** idea (a declared constraint vs reality).
+
+**First cut (scoping):** deterministic AST extraction + hand-authored architecture rules (the "intent"). The new domain-2 muscle exercised here is **intent-vs-reality contradiction** ("contradiction-as-product": stale docs / architecture violations). LLM extraction-at-scale and cross-artifact correspondence are **deferred to M3.1** — the LLM extraction path is already proven (M2/M2.1); the first cut isolates *swappability + the new oracle*.
+
+**New components (all new files except one new Oracle impl):**
+- `schema/code.lp` — relations `defines` / `calls` / `imports` / `inherits`; `calls`→`reaches` and `imports`→`imports_trans` as **transitive closures**; integrity constraints = **no inheritance cycle** + a **layering rule** (core `src/` must not import the `eval/` harness).
+- `src/code_extraction.py` — deterministic `ast` → typed `Triple`s.
+- `AstOracle` (in `oracle.py`) — the new **strong oracle**: answers `reaches(A,B)?` by independent graph BFS over the AST call facts, cross-checking the engine's transitive closure (as `ExecutionOracle` cross-checked deductive order in domain 1). Registered behind the **unchanged** `Oracle` interface.
+
+**Reused UNTOUCHED (the headline claim):** `inference_engine.py`, `knowledge_graph.py`, `extraction_filter.py`, `canonicalization.py`.
+
+**Pre-commit, then measure (DRAFT thresholds — approved 2026-06-29, per L3):**
+
+| # | Metric | What it tests | Go / kill |
+|---|---|---|---|
+| 16 | **Core reuse / swappability** — line diffs in engine/KG/filter/canon across M3 | did the abstraction hold | go = **0 diffs**, kill = any change needed |
+| 17 | **Code contradiction recall** — planted arch-violations + inheritance cycles (N≥10) caught deductively, zero LLM | does the immune system transfer | go ≥ **0.90**, kill < 0.60 |
+| 18 | **Reachability accuracy** — deductive `reaches(A,B)` closure vs AST+BFS oracle (N≥15 pairs) | does closure transfer + does the new oracle agree | go ≥ **0.90**, kill < 0.50 |
+| 19 | **False-contradiction rate** — real repo facts + consistent controls produce no spurious violations | over-strictness | go ≤ **0.10**, kill > 0.25 |
+
+**Kill criterion.** 16 ≠ 0 → the seam leaked: the whole architectural bet fails for now — report *exactly* what forced the change rather than papering over it. 17 < 0.60 or 18 < 0.50 → the deductive core does not transfer. 19 > 0.25 → the code schema is over-strict. Clearing 16–19 = the engine is proven portable across a domain *and* an oracle change — the genome is not A&DS-specific.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
