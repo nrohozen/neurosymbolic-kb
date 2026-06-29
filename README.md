@@ -49,6 +49,7 @@ py -3.12 -m venv .venv
 | `src/judge_ensemble.py` | **LLM-as-judge** ensemble over Ollama (injectable transport) |
 | `src/relation_extraction.py` | LLM **relation extraction** at the boundary (injectable transport) |
 | `src/extraction_filter.py` | **deductive consistency filter**: solver vets extracted triples, zero LLM calls |
+| `src/canonicalization.py` | **entity linking + controlled-vocabulary** normalization of extracted triples |
 | `eval/run_m1.py` | computes M1 metrics 1–5 against the draft thresholds |
 | `eval/m1_cases.jsonl` | held-out test set: comparisons, conceptual claims, planted clashes, consistent controls |
 | `eval/run_m2.py` | computes M2 extraction metrics 6–9 (raw P/R + consistency-filtered P + recall retention) |
@@ -56,8 +57,9 @@ py -3.12 -m venv .venv
 | `eval/run_m2_filter.py` | computes M2-filter metrics 10–12 (filter in isolation: catch rate, false-drop, precision lift) |
 | `eval/m2_filter_cases.jsonl` | labeled candidate triples (true / contradictory / consistent-error) with honesty meta-test |
 
-> Status: **M1 built + passing** (metrics 2–5 GO). **M2 (extraction path) built + measured** —
-> raw P/R = 0.59/0.59 (MID); errors are canonicalization, not contradictions. **M2-filter
-> (consistency filter in isolation) built + passing** — metrics 10–12 GO (catch 1.00,
-> false-drop 0.00, precision lift +0.30), with the consistent-error ceiling held honestly.
-> See the RESULT blocks in DIRECTION.md for the full findings.
+> Status: **M1 built + passing** (metrics 2–5 GO). **M2 (extraction path)** — raw P/R =
+> 0.59/0.59 (MID); errors were surface-form, not reasoning. **M2-filter** (consistency filter
+> in isolation) — metrics 10–12 GO (catch 1.00, false-drop 0.00, lift +0.30), ceiling held.
+> **M2.1 (canonicalization) built + passing** — entity linking + controlled vocab lifts P/R to
+> **0.82 / 0.78** (metrics 13/14 GO; idempotence 15 = 1.00). Residual bottleneck is now
+> structural extraction faithfulness. See the RESULT blocks in DIRECTION.md for full findings.

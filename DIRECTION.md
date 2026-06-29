@@ -205,6 +205,21 @@ The M2 run located the bottleneck: a competent base extracts the right *meaning*
 
 **Kill criterion.** 13 < 0.60 or 14 < 0.50 → surface forms weren't the real bottleneck (or the approach failed) — reconsider. 15 < 1.00 → the canonicalizer corrupts good data → bug, fix before trusting 13/14. A **MID** on 13/14 is itself informative: canonicalization is necessary-but-not-sufficient and the residual (structure drift / faithfulness) is the next lever. The run reports raw → canon side by side so the lift is explicit; no tuning the alias rules to the eval (L3).
 
+> **RESULT — M2.1 run (2026-06-29), qwen2.5:7b via Ollama, same 15-text corpus:**
+> canonicalized precision = **0.82** (go ≥ 0.80) and recall = **0.78** (go ≥ 0.70) → **13/14
+> both GO**; idempotence (15) = **1.00** (offline test: untouched on all seeds + gold, no
+> false merge). The lift over the M2 baseline: **precision 0.59 → 0.82, recall 0.59 → 0.78**
+> (2 unmappable candidates correctly dropped). The bottleneck was confirmed to be surface
+> form, not the base's competence — entity linking (`bubble_sort`→`bubblesort`) and
+> controlled-vocabulary mapping (`sorts_in_place`→`in_place`, `last_in_first_out_ordering`→
+> `lifo`) recovered ~8 facts for zero LLM calls and zero training (L2).
+>
+> The post-canon consistency filter still dropped **0** — the residual errors are structure
+> drift and world-knowledge extras (both schema-*consistent*), exactly the M2-filter ceiling.
+> So the residual bottleneck has moved from surface form to **structural extraction
+> faithfulness** (e.g. a property folded into an `is_a` object); that, not canonicalization,
+> is the next lever if extraction P/R needs to climb further.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
