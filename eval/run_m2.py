@@ -5,7 +5,8 @@ typed graph, and the deductive solver recovers extraction precision for FREE by 
 the contradiction-shaped extraction errors -- zero LLM calls -- at near-zero cost to recall.
 
 The scoring math (`evaluate`) is pure and unit-tested offline; `main` adds the live
-extraction over the corpus (needs a local Ollama; SKIPPED if unreachable).
+extraction over the corpus (needs a local Ollama; SKIPPED if unreachable). It reports the
+M2 baseline (6/7) and the post-canonicalization numbers (metrics 13/14, M2.1) side by side.
 
 Run:  python -m eval.run_m2
 """
@@ -16,6 +17,7 @@ from typing import Iterable, List, Sequence, Set
 
 from eval.extraction_corpus import load_corpus
 from eval.run_m1 import _verdict
+from src.canonicalization import Canonicalizer
 from src.extraction_filter import consistency_filter
 from src.inference_engine import InferenceEngine
 from src.knowledge_graph import KnowledgeGraph, Triple
@@ -95,7 +97,8 @@ def main() -> int:
         print("clingo is not installed.  pip install -r requirements.txt")
         return 1
 
-    seed_atoms = KnowledgeGraph.from_seeds(SEEDS).atoms()
+    kg = KnowledgeGraph.from_seeds(SEEDS)
+    seed_atoms = kg.atoms()
     corpus = load_corpus()
     gold_atoms = {t.as_atom() for e in corpus for t in e.gold}
 
@@ -105,7 +108,7 @@ def main() -> int:
         candidates.extend(extractor.extract(e.text, source=e.id))
 
     print("=" * 68)
-    print("  Milestone 2 scorecard  (domain 1: extraction path)")
+    print("  Milestone 2 scorecard  (domain 1: extraction path + canonicalization)")
     print("=" * 68)
     print(f"  corpus={len(corpus)} texts  gold-triples={len(gold_atoms)}  "
           f"seeds={len(seed_atoms)}")
@@ -116,27 +119,29 @@ def main() -> int:
         print("=" * 68)
         return 0
 
-    s = evaluate(engine, seed_atoms, gold_atoms, candidates)
-    extracted_provenance = {
-        t.provenance.method for t in candidates if t.provenance
-    } or {"(none)"}
+    # canonicalize: entity-link + map to the controlled vocabulary (drops unmappable)
+    canon = Canonicalizer.from_seed_triples(kg.triples)
+    canon_candidates = [t for t in (canon.canonicalize(c) for c in candidates) if t is not None]
 
-    v6 = _verdict(s.precision_raw, 0.80, 0.50)
-    v7 = _verdict(s.recall_raw, 0.70, 0.40)
-    v8 = _verdict(s.precision_filt, s.precision_raw, s.precision_raw)  # GO iff filt >= raw
-    v9 = _verdict(s.retention, 0.95, 0.95)
+    s_raw = evaluate(engine, seed_atoms, gold_atoms, candidates)        # M2 baseline (6/7)
+    s_can = evaluate(engine, seed_atoms, gold_atoms, canon_candidates)  # post-canon (13/14)
 
-    print(f"  extracted={s.n_extracted}  kept={s.n_kept}  dropped={s.n_dropped}  "
-          f"(false drops={s.false_drops})")
-    print(f"  provenance on extracted facts: {sorted(extracted_provenance)}")
+    v13 = _verdict(s_can.precision_raw, 0.80, 0.60)
+    v14 = _verdict(s_can.recall_raw, 0.70, 0.50)
+
+    print(f"  extracted={s_raw.n_extracted}  ->  canonicalized={s_can.n_extracted}  "
+          f"(dropped-unmappable={s_raw.n_extracted - s_can.n_extracted})")
     print("-" * 68)
-    print(f"  6. extraction precision   {s.precision_raw:5.2f}    go>=0.80 kill<0.50   -> {v6}")
-    print(f"  7. extraction recall      {s.recall_raw:5.2f}    go>=0.70 kill<0.40   -> {v7}")
-    print(f"  8. filtered precision     {s.precision_filt:5.2f}    go>=raw({s.precision_raw:.2f})        -> {v8}")
-    print(f"  9. recall retention       {s.retention:5.2f}    go>=0.95             -> {v9}")
+    print(f"   6. precision (pre-canon)  {s_raw.precision_raw:5.2f}    [M2 baseline]")
+    print(f"   7. recall    (pre-canon)  {s_raw.recall_raw:5.2f}    [M2 baseline]")
+    print(f"  13. canon precision        {s_can.precision_raw:5.2f}    go>=0.80 kill<0.60   -> {v13}")
+    print(f"  14. canon recall           {s_can.recall_raw:5.2f}    go>=0.70 kill<0.50   -> {v14}")
     print("-" * 68)
-    print(f"  filter effect: precision {s.precision_raw:.2f} -> {s.precision_filt:.2f}  "
-          f"(recall {s.recall_raw:.2f} -> {s.recall_filt:.2f}), zero LLM calls")
+    print(f"  canonicalization lift: precision {s_raw.precision_raw:+.2f}->{s_can.precision_raw:.2f}"
+          f"  recall {s_raw.recall_raw:+.2f}->{s_can.recall_raw:.2f}")
+    print(f"  post-canon consistency filter: dropped {s_can.n_dropped} "
+          f"(false drops={s_can.false_drops}), precision {s_can.precision_raw:.2f} -> "
+          f"{s_can.precision_filt:.2f}, zero LLM calls")
     print("=" * 68)
     return 0
 
