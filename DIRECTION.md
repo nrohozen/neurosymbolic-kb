@@ -97,6 +97,27 @@ Clearing 1–3 but failing 4 = the engine works but the weak-oracle muscle was s
 > difference. That's a *genuine resolution gap* between the strong and weak oracles, not a
 > bug — worth representing explicitly in later work.
 
+## Milestone 2 — the extraction path ("can the LLM frontend populate the graph, and does the solver backend recover its precision for free?")
+
+M1 proved the solver backend (metrics 2/3/5) and the weak-oracle *tie-breaking* boundary task (metric 4, judge). It left the **other** boundary task untested: **relation extraction** — turning text into typed triples. The thesis names extraction as half of what sets the parameter floor ("the reasoning the base must do at the boundary = relation extraction + tie-breaking"), and L4 names the LLM-frontend ↔ solver-backend seam as the *entire* novelty budget. M1 built only one side of that seam. M2 builds the seam itself and tests one falsifiable claim:
+
+> **The deductive solver recovers extraction precision for free** — an extracted triple that makes the graph UNSAT against the trusted seeds is a likely extraction error, droppable with **zero extra LLM calls**, at near-zero cost to recall.
+
+**Setup.** Hand-label an extraction corpus (`eval/m2_corpus.jsonl`): short algorithm / data-structure descriptions, each with the gold triples it should yield (restricted to the M1 schema — `is_a` / `has_complexity` / `has_property` + the enum). The frozen base model (Ollama) extracts candidate triples; the **consistency filter** (`src/extraction_filter.py`) adds candidates incrementally onto the trusted seed atoms, keeping each iff the graph stays SAT. Extracted triples are stamped `extracted` with their source id (L5).
+
+**Pre-commit, then measure (DRAFT thresholds — approved 2026-06-29, per L3):**
+
+| # | Metric | What it tests | Go / kill |
+|---|---|---|---|
+| 6 | **Extraction precision** = correct ÷ total extracted | can a *frozen* base populate a typed graph at all | go ≥ **0.80**, kill < 0.50 |
+| 7 | **Extraction recall** = correct ÷ gold | does it find enough of the facts | go ≥ **0.70**, kill < 0.40 |
+| 8 | **Consistency-filtered precision** — precision after dropping UNSAT-inducing triples (zero LLM calls) | does the solver backend recover precision for free | go: **≥ raw precision** |
+| 9 | **Recall retention under filter** = recall after ÷ recall before | the filter must remove errors, not truths | go ≥ **0.95** |
+
+**Kill criterion.** If 6 or 7 falls below its kill bar, a frozen base cannot drive the seam in this domain (revisit prompt / base size — *not* training, L2). If 8 < raw precision **or** 9 < 0.95, the consistency filter buys nothing (or costs truths) and the headline claim is **falsified** — report it and drop the filter rather than tuning it into looking good. The honest finding either way is metrics 8+9 together.
+
+> Caveat (inspectability): the incremental filter is **order-dependent** — when two mutually consistent-with-seeds candidates jointly violate a constraint, which one survives depends on arrival order. M2 documents this; full minimal-conflict-set localization (TMS/ATMS) is later work, not M2.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
