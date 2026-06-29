@@ -146,6 +146,27 @@ M1 proved the solver backend (metrics 2/3/5) and the weak-oracle *tie-breaking* 
 > (planted clashes; domain-3 config drift), not on first-pass extraction here. No tuning to
 > make 6–9 look better (L3) — the honest next move is a canonicalization step, then re-measure.
 
+### M2-filter — isolating the consistency-filter claim (does the deductive immune system catch *extraction* errors?)
+
+Metrics 8/9 came out *vacuous*: on a clean corpus a competent base makes canonicalization errors, not contradiction-shaped ones, so the filter had nothing to catch. This sub-milestone tests what 8/9 should have — the **filter mechanism itself** — by feeding it labeled candidate triples directly (no extractor, so the 0.59 canonicalization noise can't confound the signal; fully offline / deterministic, clingo only).
+
+**Candidate set (`eval/m2_filter_cases.jsonl`), each triple tagged:**
+- `true` — consistent with ground truth; the filter **must keep** (includes near-misses on seeded entities to stress soundness).
+- `error_contradictory` — false *and* contradiction-shaped vs the seeds/schema; the filter **should drop**.
+- `error_consistent` — false but *not* contradiction-shaped (wrong fact on an unseeded entity); the filter **cannot** drop — the honest ceiling, reported not gated.
+
+An **honesty meta-test** asserts every `error_contradictory` really is UNSAT against the seeds and every `true`/`error_consistent` really is SAT — so the set cannot silently rig the metric by mislabeling.
+
+**Pre-commit, then measure (DRAFT thresholds — approved 2026-06-29, per L3):**
+
+| # | Metric | What it tests | Go / kill |
+|---|---|---|---|
+| 10 | **Filter error-catch rate** = dropped ÷ `error_contradictory` | does the deductive filter catch contradiction-shaped extraction errors | go ≥ **0.95** (expect 1.0), kill < 0.80 |
+| 11 | **Filter false-drop rate** = `true` dropped ÷ `true` | soundness — it must remove errors, not truths | go = **0.00**, kill > 0.05 |
+| 12 | **Precision lift** = filtered precision − raw precision (on the mixed set) | does filtering actually recover precision where errors are catchable | go **> 0** (+ report the `error_consistent` ceiling) |
+
+**Kill criterion.** 10 < 0.80 → the deductive immune system is broken (it scored 1.00 on M1 metric 2, so this would be a regression). 11 > 0.05 → unsound (drops truths) → the "for free" claim is **falsified**. 12 ≤ 0 → filtering buys nothing even where errors are catchable → **falsified**. Order-dependence is a known limitation (a `true` fact can be dropped if a prior batch candidate already pushed the graph to a state where it conflicts) — measured on natural order and demonstrated separately, not hidden.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
