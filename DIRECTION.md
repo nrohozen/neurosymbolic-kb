@@ -351,6 +351,29 @@ The 3→4 jump DIRECTION flagged as the real test. Domains 1–3 had a *strong* 
 > +0.20 magnitude is local-judge-dependent (the *sign* is the falsifiable claim, and it's
 > positive); NLI/entailment, abstention/calibration, and full TMS localization remain M5.1.
 
+### M5.1 — calibrated abstention (the weak oracle that knows when NOT to answer)
+
+The anti-Tilda-graveyard guard: a fallible oracle must abstain on what it can't settle rather than force an answer. The weak oracle becomes a three-way adjudicator — **TRUE / FALSE / CONTESTED** — committing only when two decorrelated calibration signals agree:
+- **Ensemble agreement (self-consistency):** the decorrelated families (qwen + gemma) agree on direction *and* the score is decisive (far from 0.5).
+- **Negation consistency (the NLI/entailment probe, folded in):** score the claim *and its negation*; a calibrated model gives `P(X) + P(¬X) ≈ 1`. Confident-on-both (or unsure-on-both) → it doesn't actually know → CONTESTED.
+
+Deduction runs first and overrides — we never abstain on what we can prove (a deterministic safety property, unit-tested, not a flaky live metric). **Full TMS minimal conflict-set localization stays deferred to M5.2** (orthogonal belief-revision quality, off the critical path to domain 5).
+
+**Honest framing (L3):** genuinely uncertain outcome. Local 7–9B models may be uniformly overconfident and fail to separate contested from settled, in which case the live metrics come back MID/KILL — *an informative result* (calibrated abstention would then need more-decorrelated/larger judges, shaping how domain 5 must work). Not assumed to pass.
+
+**New components:** `src/calibration.py` (`CalibratedAdjudicator`, pure decision logic over signals); small backward-compatible `judge_ensemble.py` extension (per-model `scores()` + negation scoring); `eval/m5_contested.jsonl`. **Reused untouched:** engine / KG / filter / canon / `belief_revision.py`.
+
+**Pre-commit, then measure (DRAFT thresholds — approved 2026-06-29, per L3):**
+
+| # | Metric | What it tests | Go / kill |
+|---|---|---|---|
+| 30 | **Core reuse / swappability** — diffs in the frozen core | abstraction holds | go = **0**, kill = any |
+| 31 | **Contested-abstention recall** — contested claims marked CONTESTED *(live; SKIP w/o Ollama)* | abstains when it should | go ≥ **0.60**, kill < 0.30 |
+| 32 | **Over-abstention rate on settled claims** *(live)* | doesn't hide behind "contested" | go ≤ **0.30**, kill > 0.50 |
+| 33 | **Committed accuracy − judge-alone-forced accuracy** *(live)* | abstaining on the hard ones raises committed accuracy | go ≥ **0**, kill < 0 |
+
+**Kill criterion.** 30 ≠ 0 → seam leaked. 31 < 0.30 → can't detect contested (the graveyard guard fails — likely a local-model-calibration limit, report it). 32 > 0.50 → over-abstains (useless). 33 < 0 → calibration *hurts*. The deduction-overrides-abstention safety property is enforced and offline-tested regardless of the live numbers.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
