@@ -10,6 +10,8 @@ a concrete oracle. Domain 1 registers two implementations:
                           definitional claims (`has_property`) that execution cannot settle.
 - `AstOracle`           - domain 2 STRONG oracle: settles `reaches(A, B)` by independent BFS
                           over the AST call graph (cross-checks the engine's closure).
+- `StateOracle`         - domain 3 oracle: settles `observed(K, V)?` by reading the current
+                          system snapshot (an injectable provider -- offline file or live MCP).
 
 `OracleRouter` dispatches a `Claim` to the first oracle that `handles` it. Adding a new
 oracle here is the intended way to bring up a new domain (the engine stays untouched).
@@ -123,6 +125,29 @@ class AstOracle(Oracle):
                     seen.add(nxt)
                     stack.append(nxt)
         return Verdict(False, "ast", f"{start} does not reach {target}")
+
+
+class StateOracle(Oracle):
+    """Settles `observed(K, V)?` against the current system snapshot. The snapshot source is
+    an injectable provider (a zero-arg callable returning a dict), so offline tests read a
+    recorded snapshot and a live provider can call the MCP -- the oracle is the same."""
+
+    def __init__(self, provider: Callable[[], dict]) -> None:
+        self._provider = provider
+
+    def _index(self) -> dict:
+        from .state_extraction import observed_from_snapshot  # lazy: avoids import coupling
+        return {t.s: t.o for t in observed_from_snapshot(self._provider())}
+
+    def handles(self, claim: Claim) -> bool:
+        return claim.kind == "state" and claim.triple.r == "observed"
+
+    def adjudicate(self, claim: Claim) -> Verdict:
+        index = self._index()
+        key = claim.triple.s
+        if key not in index:
+            return Verdict(None, "state", f"{key} not present in snapshot")
+        return Verdict(index[key] == claim.triple.o, "state", f"observed {key}={index[key]}")
 
 
 class OracleRouter:
