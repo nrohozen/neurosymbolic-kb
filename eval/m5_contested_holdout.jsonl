@@ -1,0 +1,17 @@
+# M5.2 HELD-OUT calibration set: fresh claims, disjoint from m5_contested.jsonl (the set the
+# negation-probe bug was diagnosed on), so the fix is tested without overfitting. Entities
+# avoid the m5_seeds hierarchy so deduction stays undecided and the weak oracle must handle them.
+{"s": "number_theory", "r": "subfield_of", "o": "mathematics", "status": "settled_true"}
+{"s": "computer_networks", "r": "subfield_of", "o": "computer_science", "status": "settled_true"}
+{"s": "complexity_theory", "r": "subfield_of", "o": "computer_science", "status": "settled_true"}
+{"s": "combinatorics", "r": "subfield_of", "o": "mathematics", "status": "settled_true"}
+{"s": "gardening", "r": "subfield_of", "o": "computer_science", "status": "settled_false"}
+{"s": "pottery", "r": "subfield_of", "o": "mathematics", "status": "settled_false"}
+{"s": "meteorology", "r": "subfield_of", "o": "computer_science", "status": "settled_false"}
+{"s": "spreadsheets", "r": "subfield_of", "o": "biology", "status": "settled_false"}
+{"s": "ux_research", "r": "subfield_of", "o": "computer_science", "status": "contested"}
+{"s": "computational_linguistics", "r": "subfield_of", "o": "linguistics", "status": "contested"}
+{"s": "game_theory", "r": "subfield_of", "o": "economics", "status": "contested"}
+{"s": "robotics", "r": "subfield_of", "o": "artificial_intelligence", "status": "contested"}
+{"s": "operations_research", "r": "subfield_of", "o": "mathematics", "status": "contested"}
+{"s": "cognitive_science", "r": "subfield_of", "o": "psychology", "status": "contested"}
