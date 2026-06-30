@@ -290,6 +290,23 @@ The curriculum's first oracle weakening into **time**: the oracle is the live sy
 
 **Kill criterion.** 20 ≠ 0 → the seam leaked against a temporal oracle. 21 < 0.60 → drift detection doesn't work. 22 > 0.25 → over-strict. 23 < 0.60 → the staleness policy misses real changes (worse than just re-querying everything). 24 ≤ 0 → active learning buys nothing. Clearing 20–24 = the genome handles a mutable oracle and turns drift into a detectable product.
 
+> **RESULT — M4 run (2026-06-29), clingo only (no LLM), synthetic homelab snapshot:**
+> metric 20 (swappability) = **0 diffs** in engine/KG/filter/canon, metric 21 (drift recall)
+> = **1.00** (11/11 planted drifts, incl. the split-horizon DNS bug), metric 22 (false-drift)
+> = **0.00** (14-key baseline + 5 controls clean), metric 23 (active-learning recall) =
+> **1.00** (10/10 changes caught), metric 24 (query savings) = **0.60** (112 vs 280 naive
+> queries over 20 ticks) → **20–24 all GO.**
+> The third oracle type — *temporal/mutable* — is handled with the engine, triple store,
+> contradiction logic, and canonicalizer reused **byte-for-byte** (the new domain is a new
+> `schema/state.lp` + a new `StateOracle` + a snapshot extractor + a Python staleness
+> policy). Config drift surfaces as an enumerable derived `drift/2` product (you get the
+> *list* of drifted keys, not just UNSAT); time/active-learning stays in inspectable Python.
+> The swappability bet now holds across **three domains and three oracle kinds** (execution,
+> AST, live-state). Honest bounds: the snapshot is synthetic and the active-learning recall
+> is 1.00 *because* the simulated changes persist past their key's TTL (realistic for infra);
+> a sub-TTL flip is missed by design (demonstrated in a focused test), and a live-MCP
+> provider is deferred.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.

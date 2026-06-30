@@ -31,6 +31,9 @@ py -3.12 -m venv .venv
 
 # Milestone 3 (domain 2 = a codebase, metrics 16-19): clingo + ast, no LLM, offline.
 .venv\Scripts\python -m eval.run_m3
+
+# Milestone 4 (domain 3 = homelab/temporal oracle, metrics 20-24): clingo only, offline.
+.venv\Scripts\python -m eval.run_m4
 ```
 
 ## Tests
@@ -47,7 +50,7 @@ py -3.12 -m venv .venv
 | `schema/seeds.jsonl` | ~20 hand-authored **ground-truth triples** (the anchors) |
 | `src/knowledge_graph.py` | the typed triple store |
 | `src/inference_engine.py` | **clingo** wrapper: deductive closure (SAT) + contradiction (UNSAT) |
-| `src/oracle.py` | the swappable **Oracle** interface + `ExecutionOracle` + `JudgeEntailmentOracle` + `AstOracle` |
+| `src/oracle.py` | the swappable **Oracle** interface + `ExecutionOracle` + `JudgeEntailmentOracle` + `AstOracle` + `StateOracle` |
 | `src/reference_impls.py` | comparison-counting reference algorithms the execution oracle runs |
 | `src/judge_ensemble.py` | **LLM-as-judge** ensemble over Ollama (injectable transport) |
 | `src/relation_extraction.py` | LLM **relation extraction** at the boundary (injectable transport) |
@@ -63,10 +66,16 @@ py -3.12 -m venv .venv
 | `src/code_extraction.py` | deterministic **AST** fact extractor (`ast`) -> typed triples |
 | `eval/run_m3.py` | computes M3 domain-2 metrics 16–19 (swappability, contradiction recall, reachability, false-contradiction) |
 | `eval/m3_cases.jsonl` + `eval/m3_fixture/` | reachability/contradiction gold + a fixture codebase with a known structure |
+| `schema/state.lp` | domain-3 schema: derived config-drift + impossible-snapshot integrity constraints |
+| `src/state_extraction.py` | snapshot JSON -> `observed` triples (injectable provider) |
+| `src/staleness.py` | active-learning / staleness re-query policy + snapshot diff |
+| `eval/run_m4.py` | computes M4 domain-3 metrics 20–24 (swappability, drift recall, false-drift, active-learning) |
+| `eval/m4_*.{json,jsonl}` | synthetic homelab snapshot + desired-state intent + drift/consistent cases |
 
-> Status: **M1** (A&DS deductive core) metrics 2–5 GO. **M2/M2.1** (extraction path) — P/R
-> 0.59→**0.82/0.78** after canonicalization (13/14 GO). **M2-filter** — 10–12 GO. **M3
-> (domain 2 = a codebase) built + passing** — metrics 16–19 all GO: **swappability = 0 core
-> diffs**, code-contradiction recall 1.00, reachability 1.00 (engine closure == AstOracle
-> BFS), false-contradiction 0.00; 313 real facts extracted, layering rule holds. The deductive
-> genome is proven portable across a domain *and* an oracle change. See DIRECTION.md RESULT blocks.
+> Status: **M1** (A&DS deductive core) 2–5 GO. **M2/M2.1** (extraction) — P/R 0.59→**0.82/0.78**
+> after canonicalization. **M2-filter** — 10–12 GO. **M3 (domain 2 = a codebase)** — 16–19 GO
+> (swappability 0 diffs, reachability == AstOracle BFS, 313 real facts consistent). **M4
+> (domain 3 = homelab/temporal oracle) built + passing** — metrics 20–24 all GO: swappability
+> 0 diffs, drift recall 1.00 (incl. split-horizon DNS), false-drift 0.00, active-learning
+> caught 100% of changes at 60% fewer queries. **The genome is proven portable across three
+> domains and three oracle kinds (execution, AST, live-state).** See DIRECTION.md RESULT blocks.
