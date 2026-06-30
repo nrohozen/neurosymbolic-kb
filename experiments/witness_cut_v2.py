@@ -30,9 +30,12 @@ from src.judge_ensemble import _urllib_transport
 from src.knowledge_graph import Triple
 
 Edge = Tuple[str, str]
-MODELS = ["qwen2.5:7b", "gemma2:9b"]
+# Single model to fit the 10-min run budget; stability is therefore within-model sampling
+# variance (a minimal weight-of-evidence). Cross-family (qwen + gemma) is a follow-up if this
+# is promising -- two 7-9B models x 78 pairs x K overruns the budget.
+MODELS = ["qwen2.5:7b"]
 K = 3            # samples per (model, pair)
-TEMP = 0.7
+TEMP = 0.9       # >0 so samples vary -- otherwise stability is trivially 1.0 and tests nothing
 HOST = "http://localhost:11434"
 _LETTER = re.compile(r"\b([ABC])\b")
 
