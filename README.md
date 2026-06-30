@@ -1,8 +1,9 @@
 # neurosymbolic-kb
 
 A research/learning vehicle. Successor to Tilda — carries its lessons, not its code or
-vocabulary. See **`DIRECTION.md`** for the thesis and **`GLOSSARY.md`** for the
-standard-terminology rule (no invented terms).
+vocabulary. See **`DIRECTION.md`** for the thesis and per-milestone results, **`RESULTS.md`**
+for the consolidated one-page synthesis, and **`GLOSSARY.md`** for the standard-terminology
+rule (no invented terms).
 
 The bet, in one line: store knowledge in a **knowledge graph**, reason over it with a
 **forward-chaining inference engine**, catch most contradictions **deductively** (zero LLM
@@ -46,6 +47,9 @@ py -3.12 -m venv .venv
 
 # Milestone 6 (domain 5 = open/contested knowledge, metrics 38-42): clingo only, offline.
 .venv\Scripts\python -m eval.run_m6
+
+# Everything at once (all milestone scorecards M1-M6; live metrics skip without Ollama).
+.venv\Scripts\python -m eval.run_all
 ```
 
 ## Tests
@@ -93,6 +97,8 @@ py -3.12 -m venv .venv
 | `eval/run_m5_2.py` + `eval/m5_contested_holdout.jsonl` | M5.2 probe-fix re-test (metrics 34–37) on a held-out set |
 | `schema/open.lp` | domain-5 schema: broader_than order + same_as equivalence + disjointness |
 | `eval/run_m6.py` + `eval/m6_sources.jsonl` | M6 domain-5 metrics 38–42 + multi-source agreed/surface/latent scenarios |
+| `eval/run_all.py` | runs every milestone scorecard M1–M6 in order |
+| `RESULTS.md` | consolidated one-page synthesis across all milestones |
 
 > Status: **M1** (A&DS core) 2–5 GO. **M2/M2.1** (extraction) — P/R 0.59→**0.82/0.78** after
 > canonicalization. **M2-filter** — 10–12 GO. **M3 (codebase)** — 16–19 GO. **M4 (homelab/
