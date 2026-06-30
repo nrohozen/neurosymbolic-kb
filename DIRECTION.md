@@ -374,6 +374,35 @@ Deduction runs first and overrides — we never abstain on what we can prove (a 
 
 **Kill criterion.** 30 ≠ 0 → seam leaked. 31 < 0.30 → can't detect contested (the graveyard guard fails — likely a local-model-calibration limit, report it). 32 > 0.50 → over-abstains (useless). 33 < 0 → calibration *hurts*. The deduction-overrides-abstention safety property is enforced and offline-tested regardless of the live numbers.
 
+> **RESULT — M5.1 first run (2026-06-29), clingo + live judge (qwen2.5:7b + gemma2:9b) — a KILL, recorded honestly:**
+> metric 30 (swappability) = **0 diffs** GO; 31 (contested-abstention) = **1.00** GO; 32
+> (over-abstention on settled) = **0.62 → KILL** (>0.50); 33 (committed-acc lift) = **+0.00**
+> (committed 1.00 vs judge-alone 1.00). **The calibration mechanism FAILS its purpose with
+> these local models.**
+>
+> Diagnosis (from the per-claim probe dump): the **negation-consistency probe is the
+> culprit.** On confidently-TRUE settled claims (`graph_theory subfield_of mathematics`,
+> ensemble score 0.975, agreeing + decisive) the negated question *"is it true that X is NOT
+> a subfield of Y?"* returned ~**0.475** (a calibrated model should give ~0.025), so
+> `|0.975 + 0.475 − 1| = 0.45 > tol` → wrongly CONTESTED. The 7–9B models fumble the
+> double-negative phrasing. Two deeper findings: (a) the judge *alone* was already **1.00**
+> accurate on all 8 settled claims, so calibration added **zero** accuracy while abstaining
+> on 5/8 — strictly *worse* than the plain judge here; (b) the ensemble is **confidently
+> wrong** on genuinely-contested claims (mean 0.90–0.95 on `blockchain`/`bioinformatics`),
+> so 31's high recall is mostly the noisy probe abstaining indiscriminately, not real
+> contested-detection.
+>
+> Not tuned to green (L3): the pre-committed kill bar fired and stays recorded. **Reading:**
+> calibrated abstention via ensemble-agreement + negation-consistency does NOT work with
+> local 7–9B judges as designed — the negation probe is too noisy and the ensemble lacks the
+> calibration to flag contested claims. The deductive backbone (swappability, the pure
+> adjudication logic) is sound and unit-tested; the *live weak-oracle calibration* is what
+> failed. **The anti-graveyard guard is NOT yet earned.** M5.2 directions (each a fresh
+> pre-committed run, not a re-tune of this one): (a) fix the negation probe — score a
+> standalone negated *statement* rather than a double-negative *question* — or drop it;
+> (b) more-decorrelated / larger judges; (c) a different abstention signal (paraphrase or
+> temperature self-consistency).
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.

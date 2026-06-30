@@ -37,6 +37,9 @@ py -3.12 -m venv .venv
 
 # Milestone 5 (domain 4 = CS-as-a-field/weak oracle, metrics 25-29): metric 27 needs Ollama.
 .venv\Scripts\python -m eval.run_m5
+
+# Milestone 5.1 (calibrated abstention, metrics 30-33): 31-33 need Ollama. (First run: KILL on 32.)
+.venv\Scripts\python -m eval.run_m5_1
 ```
 
 ## Tests
@@ -57,6 +60,7 @@ py -3.12 -m venv .venv
 | `src/reference_impls.py` | comparison-counting reference algorithms the execution oracle runs |
 | `src/judge_ensemble.py` | **LLM-as-judge** ensemble over Ollama (injectable transport + claim-text) |
 | `src/belief_revision.py` | **AGM belief revision** by epistemic entrenchment (pure fn over triples) |
+| `src/calibration.py` | **calibrated abstention** (TRUE/FALSE/CONTESTED) via agreement + negation-consistency |
 | `src/relation_extraction.py` | LLM **relation extraction** at the boundary (injectable transport) |
 | `src/extraction_filter.py` | **deductive consistency filter**: solver vets extracted triples, zero LLM calls |
 | `src/canonicalization.py` | **entity linking + controlled-vocabulary** normalization of extracted triples |
@@ -78,6 +82,7 @@ py -3.12 -m venv .venv
 | `schema/csfield.lp` | domain-4 schema: subfield_of/subsumes strict partial orders (cycle = contradiction) |
 | `eval/run_m5.py` | computes M5 domain-4 metrics 25–29 (swappability, deductive reliability, structure lift, belief revision, consistency) |
 | `eval/m5_*.jsonl` | CS axioms + consensus-labeled claims + designed belief-revision scenarios |
+| `eval/run_m5_1.py` + `eval/m5_contested.jsonl` | M5.1 calibrated-abstention metrics 30–33 + settled/contested calibration set |
 
 > Status: **M1** (A&DS core) 2–5 GO. **M2/M2.1** (extraction) — P/R 0.59→**0.82/0.78** after
 > canonicalization. **M2-filter** — 10–12 GO. **M3 (codebase)** — 16–19 GO. **M4 (homelab/
@@ -85,5 +90,8 @@ py -3.12 -m venv .venv
 > passing** — metrics 25–29 all GO: swappability 0 diffs, deductive reliability 1.00,
 > **structure lift +0.20 (assisted 1.00 vs judge-alone 0.80)**, belief-revision 1.00, final
 > consistency 1.00. **The genome holds across four domains and four oracle kinds (execution,
-> AST, live-state, weak/judge) — the make-or-break 3→4 jump is cleared.** See DIRECTION.md
-> RESULT blocks.
+> AST, live-state, weak/judge) — the make-or-break 3→4 jump is cleared.** **M5.1 (calibrated
+> abstention) — KILL on metric 32 (recorded honestly):** the negation-consistency probe
+> over-abstains on settled claims with local 7–9B judges (judge-alone was already 1.00 on
+> them), so the anti-graveyard guard isn't earned yet — see the M5.1 RESULT block + M5.2
+> directions in DIRECTION.md. See DIRECTION.md RESULT blocks.
