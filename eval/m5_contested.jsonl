@@ -1,0 +1,17 @@
+# M5.1 calibration set. status one of:
+#  settled_true / settled_false - clear expert consensus; the system should COMMIT (correctly)
+#  contested                    - genuinely disputed/open categorization; should ABSTAIN
+{"s": "graph_theory", "r": "subfield_of", "o": "mathematics", "status": "settled_true"}
+{"s": "operating_systems", "r": "subfield_of", "o": "computer_science", "status": "settled_true"}
+{"s": "compilers", "r": "subfield_of", "o": "computer_science", "status": "settled_true"}
+{"s": "databases", "r": "subfield_of", "o": "computer_science", "status": "settled_true"}
+{"s": "html", "r": "subfield_of", "o": "artificial_intelligence", "status": "settled_false"}
+{"s": "databases", "r": "subfield_of", "o": "artificial_intelligence", "status": "settled_false"}
+{"s": "photosynthesis", "r": "subfield_of", "o": "computer_science", "status": "settled_false"}
+{"s": "cooking", "r": "subfield_of", "o": "computer_science", "status": "settled_false"}
+{"s": "software_engineering", "r": "subfield_of", "o": "science", "status": "contested"}
+{"s": "data_science", "r": "subfield_of", "o": "statistics", "status": "contested"}
+{"s": "informatics", "r": "subfield_of", "o": "computer_science", "status": "contested"}
+{"s": "blockchain", "r": "subfield_of", "o": "distributed_systems", "status": "contested"}
+{"s": "prompt_engineering", "r": "subfield_of", "o": "computer_science", "status": "contested"}
+{"s": "bioinformatics", "r": "subfield_of", "o": "biology", "status": "contested"}
