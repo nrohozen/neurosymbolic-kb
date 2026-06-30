@@ -403,6 +403,27 @@ Deduction runs first and overrides — we never abstain on what we can prove (a 
 > (b) more-decorrelated / larger judges; (c) a different abstention signal (paraphrase or
 > temperature self-consistency).
 
+### M5.2 — fix the calibration probe (on held-out data)
+
+The M5.1 KILL was diagnosed on `m5_contested.jsonl`, so re-running the fix on that set would overfit to the inspected cases. M5.2 uses a **fresh held-out calibration set** (`m5_contested_holdout.jsonl`, disjoint from the diagnosed one) so the fix is tested honestly.
+
+**The fix:** the negation probe asked a double-negative *question* that local models fumbled (~0.475 on confidently-true claims). Replace it with scoring a clean negated **statement** (`negation_statement_text`); M5.1's function is left intact so M5.1 stays reproducible. The adjudication *logic* (`calibration.py`) was never the bug and is unchanged.
+
+**Honest prediction (L3):** M5.1 showed the models were *confidently opinionated* on contested claims (0.90–0.95, both families agreeing), not uncertain. So the fix is expected to resolve **over-abstention on settled (metric 36 → GO)** but may then **commit on contested (metric 35 → KILL)** — once the negation probe is consistent, nothing flags contestedness. If that trade-off appears it IS the finding: **genuine contestedness cannot be recovered from one model family's self-signals; it needs external source disagreement — i.e. domain 5.** Not assumed to pass.
+
+**Reused untouched:** engine / KG / filter / canon / `belief_revision.py` / `calibration.py`.
+
+**Pre-commit, then measure (DRAFT thresholds — approved 2026-06-29, per L3; fresh set, fixed probe):**
+
+| # | Metric | What it tests | Go / kill |
+|---|---|---|---|
+| 34 | **Core reuse / swappability** | abstraction holds | go = **0**, kill = any |
+| 35 | **Contested-abstention recall** (held-out) *(live)* | can self-signals flag contested at all | go ≥ **0.60**, kill < 0.30 |
+| 36 | **Over-abstention on settled** (held-out) *(live)* | does the fix resolve the M5.1 failure | go ≤ **0.30**, kill > 0.50 |
+| 37 | **Committed accuracy − judge-alone** (held-out) *(live)* | calibration doesn't hurt | go ≥ **0**, kill < 0 |
+
+**Kill criterion.** 34 ≠ 0 → seam leaked. 36 > 0.50 → the fix didn't resolve over-abstention (bug deeper than phrasing). 35 < 0.30 → the predicted outcome: self-signals can't flag contested → conclude contestedness needs external disagreement (domain 5), recorded not buried. 37 < 0 → calibration hurts.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
