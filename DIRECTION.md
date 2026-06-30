@@ -424,6 +424,31 @@ The M5.1 KILL was diagnosed on `m5_contested.jsonl`, so re-running the fix on th
 
 **Kill criterion.** 34 ≠ 0 → seam leaked. 36 > 0.50 → the fix didn't resolve over-abstention (bug deeper than phrasing). 35 < 0.30 → the predicted outcome: self-signals can't flag contested → conclude contestedness needs external disagreement (domain 5), recorded not buried. 37 < 0 → calibration hurts.
 
+> **RESULT — M5.2 run (2026-06-29), clingo + live judge, held-out set — confirms BOTH pre-registered predictions:**
+> metric 34 (swappability) = **0 diffs** GO; 35 (contested-abstention) = **0.17 → KILL**;
+> 36 (over-abstention on settled) = **0.38 → MID** (was 0.62 KILL in M5.1); 37 (committed
+> lift) = **+0.00** (committed 1.00 vs judge-alone 1.00).
+>
+> Two clean findings, exactly as predicted before the run:
+> 1. **The bug was real and the fix helped:** over-abstention fell **0.62 → 0.38** on a
+>    *held-out* set — the double-negative phrasing genuinely was breaking the negation probe.
+>    (Still MID, not GO: a few settled claims trip the decisive/consistency gate even fixed.)
+> 2. **The deeper limit is fundamental:** with a *consistent* probe, contested-abstention
+>    **collapsed to 0.17** — the system now COMMITS on contested claims because the local
+>    7–9B models are **confidently opinionated** on them (not uncertain). The broken probe
+>    over-abstained on everything; the fixed probe under-abstains on contested. The trade-off
+>    just moves — there is no daylight between settled and contested in a single overconfident
+>    model family's self-signals.
+>
+> **Conclusion (the thing M5/M5.1/M5.2 were really testing): genuine contestedness is NOT
+> recoverable from model self-signals — it must come from EXTERNAL source disagreement.**
+> That is precisely domain 5's remit ("represent genuine disagreement rather than resolve
+> it"). So M5.x earns this: *the weak-oracle judge is fine for adjudicating where consensus
+> exists (M5: structure lift +0.20), but "is this contested?" is answerable only by conflicting
+> sources, not introspection.* Calibrated abstention via self-signals is **retired** as a dead
+> end with these models; the contested signal is deferred to domain 5's source-disagreement
+> mechanism. Not tuned to green (L3) — recorded as a mixed result that resolved the question.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.

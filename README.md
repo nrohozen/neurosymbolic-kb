@@ -40,6 +40,9 @@ py -3.12 -m venv .venv
 
 # Milestone 5.1 (calibrated abstention, metrics 30-33): 31-33 need Ollama. (First run: KILL on 32.)
 .venv\Scripts\python -m eval.run_m5_1
+
+# Milestone 5.2 (probe fix on held-out set, metrics 34-37): 35-37 need Ollama.
+.venv\Scripts\python -m eval.run_m5_2
 ```
 
 ## Tests
@@ -83,6 +86,7 @@ py -3.12 -m venv .venv
 | `eval/run_m5.py` | computes M5 domain-4 metrics 25–29 (swappability, deductive reliability, structure lift, belief revision, consistency) |
 | `eval/m5_*.jsonl` | CS axioms + consensus-labeled claims + designed belief-revision scenarios |
 | `eval/run_m5_1.py` + `eval/m5_contested.jsonl` | M5.1 calibrated-abstention metrics 30–33 + settled/contested calibration set |
+| `eval/run_m5_2.py` + `eval/m5_contested_holdout.jsonl` | M5.2 probe-fix re-test (metrics 34–37) on a held-out set |
 
 > Status: **M1** (A&DS core) 2–5 GO. **M2/M2.1** (extraction) — P/R 0.59→**0.82/0.78** after
 > canonicalization. **M2-filter** — 10–12 GO. **M3 (codebase)** — 16–19 GO. **M4 (homelab/
@@ -93,5 +97,8 @@ py -3.12 -m venv .venv
 > AST, live-state, weak/judge) — the make-or-break 3→4 jump is cleared.** **M5.1 (calibrated
 > abstention) — KILL on metric 32 (recorded honestly):** the negation-consistency probe
 > over-abstains on settled claims with local 7–9B judges (judge-alone was already 1.00 on
-> them), so the anti-graveyard guard isn't earned yet — see the M5.1 RESULT block + M5.2
-> directions in DIRECTION.md. See DIRECTION.md RESULT blocks.
+> them), so the anti-graveyard guard isn't earned yet. **M5.2 (probe fix, held-out set)**
+> confirmed both predictions: the fix cut over-abstention 0.62→0.38 (the bug was real), but
+> contested-abstention collapsed to 0.17 — **self-signals from one overconfident model family
+> can't detect contestedness; it needs external source disagreement (→ domain 5).** See
+> DIRECTION.md RESULT blocks.
