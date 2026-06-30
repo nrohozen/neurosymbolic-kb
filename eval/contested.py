@@ -31,12 +31,26 @@ def load_contested(path: str | Path = CONTESTED) -> List[dict]:
 
 
 def negation_claim_text(t: Triple) -> str:
+    """M5.1 negation phrasing (a double-negative QUESTION). Kept for M5.1 reproducibility;
+    it over-abstained because local models fumble the double negative — see DIRECTION.md."""
     s, o = t.s.replace("_", " "), t.o.replace("_", " ")
     if t.r == "subfield_of":
         return f"In computer science, is it true that {s} is NOT a subfield of {o}?"
     if t.r == "subsumes":
         return f"In computer science, is it true that {s} does NOT generalize {o}?"
     return f"Is the statement '{t.s} {t.r} {t.o}' FALSE?"
+
+
+def negation_statement_text(t: Triple) -> str:
+    """M5.2 fix: present a clean negated STATEMENT to score, not a double-negative question.
+    The judge appends '... probability ... that it is true', so this reads as
+    'Consider the statement: "X is not a subfield of Y." ... probability ... it is true.'"""
+    s, o = t.s.replace("_", " "), t.o.replace("_", " ")
+    if t.r == "subfield_of":
+        return f"Consider the statement: '{s} is not a subfield of {o}.'"
+    if t.r == "subsumes":
+        return f"Consider the statement: '{s} does not generalize {o}.'"
+    return f"Consider the statement: 'it is false that {t.s} {t.r} {t.o}.'"
 
 
 def build_signals(triple: Triple, judge_pos, judge_neg) -> Signals:
