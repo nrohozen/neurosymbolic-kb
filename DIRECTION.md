@@ -449,6 +449,28 @@ The M5.1 KILL was diagnosed on `m5_contested.jsonl`, so re-running the fix on th
 > end with these models; the contested signal is deferred to domain 5's source-disagreement
 > mechanism. Not tuned to green (L3) — recorded as a mixed result that resolved the question.
 
+## Milestone 6 — domain 5 (open/contested knowledge): the curriculum finale
+
+The last and hardest domain: no reliable oracle, conflicting sources (Tilda's graveyard). M5.2 *specified the requirement*: contestedness comes from **external source disagreement**, not model introspection. So the system stops emitting a single TRUE/FALSE — it ingests claims from **multiple sources** and classifies each as **AGREED** (sources concur) or **CONTESTED** (sources conflict), and for contested it **represents every position with its source rather than resolving it** (the anti-graveyard, earned via the right mechanism).
+
+**The neurosymbolic contribution (more than a dict-diff):** structure surfaces **latent** disagreement surface-comparison misses. Three sources each assert a plausible link (`A broader_than B`, `B broader_than C`, `C broader_than A`) — no two conflict, but together a cycle → deduction localizes the contested set.
+
+**Deliberately no LLM in the first cut** (M5.2-motivated): the source set *is* the oracle; disagreement is computed deterministically. LLM source-credibility weighting and **word-sense/ambiguity resolution** are deferred to M6.1.
+
+**New components:** `schema/open.lp` (`broader_than` transitive+acyclic, `same_as` symmetric+transitive equivalence, disjointness between them); `src/source_reconciliation.py` (sourced claims reusing Provenance/L5; deletion-based **MUS** localization — the TMS-ish minimal-conflict-set finding, now properly motivated; `surface_conflicts` pairwise baseline vs `reconcile` deductive → a `Reconciliation{agreed, contested[]}` that represents, never resolves; reuses `engine.is_consistent`). **Reused untouched:** engine / KG / filter / canon / belief_revision / calibration.
+
+**Pre-commit, then measure (DRAFT thresholds — approved 2026-06-29, per L3; all deterministic/offline):**
+
+| # | Metric | What it tests | Go / kill |
+|---|---|---|---|
+| 38 | **Core reuse / swappability** | abstraction holds for the final domain | go = **0**, kill = any |
+| 39 | **Disagreement-detection recall** — planted conflicts (surface + latent, N≥10) flagged, zero LLM | source-disagreement oracle works | go ≥ **0.90**, kill < 0.60 |
+| 40 | **Latent-conflict recall (deductive)** on the latent subset — surface-baseline reported for contrast | structure surfaces non-obvious disagreement | go ≥ **0.90**, kill < 0.60 |
+| 41 | **Faithful representation** — every contested cluster keeps all conflicting source-positions; none dropped/resolved | the anti-graveyard core | go = **1.00**, kill < 1.00 |
+| 42 | **False-contestation rate** — agreed claims not flagged contested | over-flagging | go ≤ **0.10**, kill > 0.25 |
+
+**Kill criterion.** 38 ≠ 0 → seam leaked. 39 < 0.60 → can't detect source disagreement. 40 < 0.60 → deduction gives no advantage over surface comparison (the neurosymbolic claim fails here). 41 < 1.00 → it drops or picks a side (graveyard behavior returns — the one thing domain 5 must not do). 42 > 0.25 → over-flags agreement. Clearing 38–42 closes the curriculum: the genome spans all five domains, and the weak/no-oracle end is handled by *representing* disagreement, not faking resolution.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
