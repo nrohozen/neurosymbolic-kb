@@ -307,6 +307,33 @@ The curriculum's first oracle weakening into **time**: the oracle is the live sy
 > a sub-TTL flip is missed by design (demonstrated in a focused test), and a live-MCP
 > provider is deferred.
 
+## Milestone 5 — domain 4 (CS-as-a-field): "the real thesis test — does structure still buy elimination power when the oracle is WEAK?"
+
+The 3→4 jump DIRECTION flagged as the real test. Domains 1–3 had a *strong* oracle (execution / AST / live-state) handing out ground truth; domain 4 has **none** — claims about CS-as-a-field can't be run or parsed, so the oracle is fallible (reference consensus + the LLM-judge ensemble). The bet either generalizes to the weak boundary or it doesn't.
+
+**Made falsifiable without world-ground-truth:** with a weak oracle the system must (a) settle *derivable* claims by **deductive closure** over a small high-confidence axiom set with **zero LLM calls**, (b) fall back to the **judge ensemble** (reused from M1) where claims aren't derivable, and (c) keep its belief set consistent via **belief revision (AGM)**. (a) and (c) are checkable *deductively* regardless of whether any single claim is "true," so the backbone metrics don't depend on the flaky judge.
+
+**New components (all new files; frozen core untouched):**
+- `schema/csfield.lp` — `subfield_of` and `subsumes`, both **transitive + acyclic** (strict partial orders); a cycle = a deductive contradiction. Multi-hop queries answered by closure.
+- `src/belief_revision.py` — **AGM minimal revision by epistemic entrenchment**: a *pure function* over triples (no KG mutation → core stays frozen) that removes the lowest-confidence members only as needed to restore consistency (engine UNSAT check). Greedy/entrenchment-ordered — not full TMS minimal-conflict-set localization.
+- Reuse `JudgeEnsemble` as the weak oracle (injectable claim-text formatter; `judge_ensemble.py` is not frozen core).
+
+**Deferred to M5.1 (stated, not skipped):** model-based **NLI/entailment**, **abstention/calibration** on genuinely-contested claims (the anti-Tilda-graveyard muscle), and full TMS conflict-set localization.
+
+**Reused UNTOUCHED (swappability, now vs a weak oracle):** `inference_engine.py`, `knowledge_graph.py`, `extraction_filter.py`, `canonicalization.py`.
+
+**Pre-commit, then measure (DRAFT thresholds — approved 2026-06-29, per L3):**
+
+| # | Metric | What it tests | Go / kill |
+|---|---|---|---|
+| 25 | **Core reuse / swappability** — diffs in engine/KG/filter/canon | abstraction holds vs a weak oracle | go = **0**, kill = any |
+| 26 | **Deductive reliability on derivable CS claims** (zero LLM) | structure settles multi-hop claims here too | go ≥ **0.90**, kill < 0.70 |
+| 27 | **Structure lift vs judge-alone** = assisted − judge-alone accuracy *(live judge; SKIP w/o Ollama)* | structure must not hurt at the weak boundary | go ≥ **0**, kill < 0 (magnitude descriptive) |
+| 28 | **Belief-revision correctness** — designed conflicts (N≥10): retract the weakest, end consistent | AGM revision works | go ≥ **0.90**, kill < 0.60 |
+| 29 | **Final-belief-set consistency** — after folding a contradictory claim stream | never settles into contradiction | go = **1.00**, kill < 1.00 |
+
+**Kill criterion.** 25 ≠ 0 → seam leaked vs a weak oracle. 26 < 0.70 → structure doesn't transfer to CS-field claims. 27 < 0 → **structure actively hurts at the weak boundary, a real dent in the thesis** (report, don't bury). 28 < 0.60 → belief revision is broken. 29 < 1.00 → the system can be driven into permanent contradiction. Honest read: if 27 ≈ 0, structure's value here is *reliability + zero-LLM cost* on derivable claims, not raw accuracy gain — reported with a per-subset breakdown.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
