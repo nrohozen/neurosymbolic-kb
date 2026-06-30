@@ -334,6 +334,23 @@ The 3→4 jump DIRECTION flagged as the real test. Domains 1–3 had a *strong* 
 
 **Kill criterion.** 25 ≠ 0 → seam leaked vs a weak oracle. 26 < 0.70 → structure doesn't transfer to CS-field claims. 27 < 0 → **structure actively hurts at the weak boundary, a real dent in the thesis** (report, don't bury). 28 < 0.60 → belief revision is broken. 29 < 1.00 → the system can be driven into permanent contradiction. Honest read: if 27 ≈ 0, structure's value here is *reliability + zero-LLM cost* on derivable claims, not raw accuracy gain — reported with a per-subset breakdown.
 
+> **RESULT — M5 run (2026-06-29), clingo + live judge (qwen2.5:7b + gemma2:9b):**
+> metric 25 (swappability) = **0 diffs**, metric 26 (deductive reliability) = **1.00** (9/9
+> derivable claims, zero LLM), metric 27 (structure lift) = **+0.20** — assisted **1.00** vs
+> judge-alone **0.80** — metric 28 (belief-revision correctness) = **1.00** (10/10 designed
+> conflicts), metric 29 (final consistency) = **1.00** → **25–29 all GO.**
+> The real thesis test passed *non-trivially*: the live judge alone got 0.80 (it fumbled
+> derivable claims — mostly the reverse-direction ones a transitive order rules out), and
+> deductive structure rescued them to 1.00 with **zero LLM calls**. So even at the WEAK
+> boundary, structure buys elimination power — exactly the genomic-bottleneck claim
+> (cf. M1's comparison-accuracy result, now reproduced where the oracle is fallible). Belief
+> revision keeps the belief set consistent under a contradictory stream, retracting the
+> least-entrenched fact (AGM by confidence). The genome now holds across **four domains and
+> four oracle kinds (execution, AST, live-state, weak/judge)** — the 3→4 jump DIRECTION
+> flagged as make-or-break is cleared. Honest bounds: small hand-curated reference set; the
+> +0.20 magnitude is local-judge-dependent (the *sign* is the falsifiable claim, and it's
+> positive); NLI/entailment, abstention/calibration, and full TMS localization remain M5.1.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
