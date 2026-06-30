@@ -52,6 +52,26 @@ class CalibrationScores:
     n_committed_settled: int
 
 
+def build_rows(engine, seed_atoms, cases, judge_pos, judge_neg) -> List[dict]:
+    """Adjudicate each case into a scoring row. Shared by M5.1 and M5.2 (only the judges'
+    claim-text / dataset differ between them)."""
+    gold_of = {"settled_true": True, "settled_false": False, "contested": None}
+    rows = []
+    for c in cases:
+        t = Triple(c["s"], c["r"], c["o"])
+        ded = deductive_verdict(engine, seed_atoms, t)
+        sig = build_signals(t, judge_pos, judge_neg)
+        adj = adjudicate(ded, sig)
+        rows.append({
+            "status": c["status"],
+            "gold": gold_of[c["status"]],
+            "adj_status": adj.status,
+            "adj_verdict": adj.verdict,
+            "judge_mean": (sum(sig.model_scores) / len(sig.model_scores)) if sig.model_scores else None,
+        })
+    return rows
+
+
 def evaluate(rows: List[dict]) -> CalibrationScores:
     """rows: {status, gold(bool|None), adj_status, adj_verdict, judge_mean(float|None)}."""
     available = any(r["judge_mean"] is not None for r in rows)
@@ -117,21 +137,7 @@ def main() -> int:
     judge_pos = JudgeEnsemble(claim_text=claim_text)
     judge_neg = JudgeEnsemble(claim_text=negation_claim_text)
 
-    gold_of = {"settled_true": True, "settled_false": False, "contested": None}
-    rows = []
-    for c in cases:
-        t = Triple(c["s"], c["r"], c["o"])
-        ded = deductive_verdict(engine, seed_atoms, t)
-        sig = build_signals(t, judge_pos, judge_neg)
-        adj = adjudicate(ded, sig)
-        rows.append({
-            "status": c["status"],
-            "gold": gold_of[c["status"]],
-            "adj_status": adj.status,
-            "adj_verdict": adj.verdict,
-            "judge_mean": (sum(sig.model_scores) / len(sig.model_scores)) if sig.model_scores else None,
-        })
-
+    rows = build_rows(engine, seed_atoms, cases, judge_pos, judge_neg)
     s = evaluate(rows)
     diff = core_diff_lines()
     v30 = "GO" if diff == 0 else "KILL"
