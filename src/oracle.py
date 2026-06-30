@@ -4,12 +4,15 @@ The `Oracle` interface is the seam that makes moving to a new domain a *re-regis
 not a rewrite: the inference engine, property library, and contradiction logic never name
 a concrete oracle. Domain 1 registers two implementations:
 
-- `ExecutionOracle`     - the STRONG oracle: runs reference implementations and compares
-                          measured work to settle performance claims (`faster_than`).
-- `JudgeEntailmentOracle` - the WEAK oracle: an LLM-as-judge ensemble for conceptual /
+- `ExecutionOracle`     - domain 1 STRONG oracle: runs reference implementations and
+                          compares measured work to settle performance claims (`faster_than`).
+- `JudgeEntailmentOracle` - domain 1 WEAK oracle: an LLM-as-judge ensemble for conceptual /
                           definitional claims (`has_property`) that execution cannot settle.
+- `AstOracle`           - domain 2 STRONG oracle: settles `reaches(A, B)` by independent BFS
+                          over the AST call graph (cross-checks the engine's closure).
 
-`OracleRouter` dispatches a `Claim` to the first oracle that `handles` it.
+`OracleRouter` dispatches a `Claim` to the first oracle that `handles` it. Adding a new
+oracle here is the intended way to bring up a new domain (the engine stays untouched).
 """
 from __future__ import annotations
 
@@ -85,6 +88,41 @@ class JudgeEntailmentOracle(Oracle):
         if score is None:
             return Verdict(None, "judge", "judge unavailable")
         return Verdict(score >= self._threshold, "judge", f"ensemble score {score:.2f}")
+
+
+class AstOracle(Oracle):
+    """Settles `reaches(A, B)` by independent breadth-first search over the AST call graph.
+    Deterministic and decoupled from the engine's transitive-closure rule, so agreement
+    between the two is a genuine cross-check (as execution cross-checked deduction in
+    domain 1)."""
+
+    def __init__(self, call_edges: Mapping[str, Sequence[str]]) -> None:
+        self._edges: dict[str, set[str]] = {k: set(v) for k, v in call_edges.items()}
+
+    @classmethod
+    def from_call_triples(cls, triples) -> "AstOracle":
+        edges: dict[str, set[str]] = {}
+        for t in triples:
+            if t.r == "calls":
+                edges.setdefault(t.s, set()).add(t.o)
+        return cls(edges)
+
+    def handles(self, claim: Claim) -> bool:
+        return claim.kind == "reachability" and claim.triple.r == "reaches"
+
+    def adjudicate(self, claim: Claim) -> Verdict:
+        start, target = claim.triple.s, claim.triple.o
+        seen: set[str] = set()
+        stack = [start]
+        while stack:
+            node = stack.pop()
+            for nxt in self._edges.get(node, ()):  # strict reachability: >= 1 edge
+                if nxt == target:
+                    return Verdict(True, "ast", f"{start} reaches {target}")
+                if nxt not in seen:
+                    seen.add(nxt)
+                    stack.append(nxt)
+        return Verdict(False, "ast", f"{start} does not reach {target}")
 
 
 class OracleRouter:
