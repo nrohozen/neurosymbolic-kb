@@ -62,21 +62,29 @@ def forced_choice_vote(transport: Callable, model: str, x: str, y: str) -> str |
     return m.group(1) if m else None
 
 
-def elicit_stable(transport: Callable, models=MODELS, k: int = K) -> List[Tuple[Edge, float]]:
-    """Forced-choice over every unordered pair, sampled k times per model. Returns the
-    majority-direction edges with their stability (agreement fraction)."""
+def elicit_stable(
+    transport: Callable, models=MODELS, k: int = K, log: Callable[[str], None] = lambda _m: None,
+) -> List[Tuple[Edge, float]]:
+    """Forced-choice over every unordered pair, sampled k times per model. Batched BY MODEL
+    (outer loop) so each model loads into Ollama once instead of thrashing on every call.
+    Returns the majority-direction edges with their stability (agreement fraction)."""
     names = list(CLASSES)
     pairs = [(names[i], names[j]) for i in range(len(names)) for j in range(i + 1, len(names))]
-    out: List[Tuple[Edge, float]] = []
-    for x, y in pairs:
-        xy = yx = neither = total = 0
-        for model in models:
+    votes: Dict[Edge, List[int]] = {p: [0, 0, 0, 0] for p in pairs}  # xy, yx, neither, total
+    for model in models:
+        log(f"eliciting with {model} ({len(pairs)} pairs x {k}) ...")
+        for x, y in pairs:
             for _ in range(k):
                 v = forced_choice_vote(transport, model, x, y)
                 if v is None:
                     continue
-                total += 1
-                xy, yx, neither = (xy + (v == "A"), yx + (v == "B"), neither + (v == "C"))
+                rec = votes[(x, y)]
+                rec[3] += 1
+                rec[0 if v == "A" else 1 if v == "B" else 2] += 1
+        log(f"  {model} done")
+
+    out: List[Tuple[Edge, float]] = []
+    for (x, y), (xy, yx, _neither, total) in votes.items():
         if total == 0:
             continue
         if xy > total / 2:
@@ -96,7 +104,7 @@ def main() -> int:
         return 1
 
     truth = ground_truth()
-    elicited = elicit_stable(_urllib_transport)
+    elicited = elicit_stable(_urllib_transport, log=lambda m: print(f"  {m}", flush=True))
     if not elicited:
         print("no assertions elicited -> SKIPPED (is Ollama running at :11434?)")
         return 0
