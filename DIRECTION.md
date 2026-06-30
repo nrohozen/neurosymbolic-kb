@@ -264,6 +264,32 @@ The load-bearing architectural bet (Milestone 0): moving domains = **author a ne
 > is exact only on the unambiguous subgraph. LLM extraction-at-scale, cross-artifact
 > correspondence, and intent-extracted-from-docs are **M3.1** (next), not claimed here.
 
+## Milestone 4 — domain 3 (homelab/infrastructure): "does the engine transfer to a temporal/mutable oracle, and is config drift caught as contradiction-as-product?"
+
+The curriculum's first oracle weakening into **time**: the oracle is the live system via the MCP — still deterministic when queried, but *mutable*, so a fact true at T1 can be false at T2. Three new muscles: **time-stamped facts**, **active-learning** (when to re-query reality), and **contradiction-as-product** (config drift = a real, actionable bug — cf. the 2026-06-29 split-horizon DNS issue).
+
+**Clean split — keep ASP for contradiction, Python for time:**
+- **Deductive layer (`schema/state.lp`):** state is binary facts over a compound `resource.attribute` key — `observed(K,V)` and `desired(K,V)` — so it **reuses `Triple` and the engine unchanged** (binary predicates, like every prior domain). Drift constraint `:- desired(K,V1), observed(K,V2), V1!=V2` makes drift a deductive contradiction; plus single-value-per-key integrity.
+- **Temporal layer (`src/staleness.py`):** snapshots carry timestamps; an **active-learning / staleness policy** decides which keys to re-query from age + volatility, and a snapshot-diff detects change. Time arithmetic stays in inspectable Python, not crammed into clingo.
+
+**Snapshot source (decided 2026-06-29): synthetic, modeled on the real homelab** (pihole / npm / proxmox shapes, placeholder IPs/hostnames) — zero network, zero real topology in the repo, fully reproducible. The eval is offline/deterministic against the committed snapshot; "re-querying" = loading a later snapshot. A live-MCP provider is a later increment.
+
+**New components (all new files except one new Oracle impl):** `schema/state.lp`; `src/state_extraction.py` (snapshot JSON → `observed` triples, injectable provider); `StateOracle` in `oracle.py` (behind the unchanged `Oracle` interface); `src/staleness.py` (re-query policy + diff); `eval/run_m4.py` + fixtures.
+
+**Reused UNTOUCHED (the swappability claim, now vs a temporal oracle):** `inference_engine.py`, `knowledge_graph.py`, `extraction_filter.py`, `canonicalization.py`.
+
+**Pre-commit, then measure (DRAFT thresholds — approved 2026-06-29, per L3):**
+
+| # | Metric | What it tests | Go / kill |
+|---|---|---|---|
+| 20 | **Core reuse / swappability** — diffs in engine/KG/filter/canon across M4 | abstraction holds vs a temporal oracle | go = **0**, kill = any |
+| 21 | **Drift-detection recall** — planted config drifts (N≥10) caught deductively, zero LLM | contradiction-as-product works | go ≥ **0.90**, kill < 0.60 |
+| 22 | **False-drift rate** — matching desired/observed not flagged | over-strictness | go ≤ **0.10**, kill > 0.25 |
+| 23 | **Active-learning change-detection recall** — over a simulated snapshot stream, fraction of real changes the staleness policy re-queries in time | the temporal muscle | go ≥ **0.90**, kill < 0.60 |
+| 24 | **Query savings** — (naive − policy queries) / naive on that stream | active learning actually saves work | go **> 0** (descriptive) |
+
+**Kill criterion.** 20 ≠ 0 → the seam leaked against a temporal oracle. 21 < 0.60 → drift detection doesn't work. 22 > 0.25 → over-strict. 23 < 0.60 → the staleness policy misses real changes (worse than just re-querying everything). 24 ≤ 0 → active learning buys nothing. Clearing 20–24 = the genome handles a mutable oracle and turns drift into a detectable product.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
