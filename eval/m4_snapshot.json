@@ -1,0 +1,26 @@
+{
+  "captured_at": 1719600000,
+  "pihole": {
+    "secondary_dns": "10.0.0.53",
+    "dns_records": [
+      {"domain": "media.lan", "ip": "10.0.0.41"},
+      {"domain": "api.lan", "ip": "10.0.0.12"},
+      {"domain": "downloads.lan", "ip": "10.0.0.43"}
+    ]
+  },
+  "npm": {
+    "proxy_hosts": [
+      {"domain": "media.example.foo", "forward": "10.0.0.41:8080", "enabled": true},
+      {"domain": "api.example.foo", "forward": "10.0.0.12:443", "enabled": true},
+      {"domain": "downloads.example.foo", "forward": "10.0.0.43:8081", "enabled": true}
+    ]
+  },
+  "proxmox": {
+    "guests": [
+      {"vmid": 201, "name": "node2_media", "status": "running"},
+      {"vmid": 202, "name": "api", "status": "running"},
+      {"vmid": 203, "name": "gameserver", "status": "running"},
+      {"vmid": 204, "name": "downloads", "status": "running"}
+    ]
+  }
+}
