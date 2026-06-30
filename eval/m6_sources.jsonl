@@ -1,0 +1,20 @@
+# M6 (domain 5) multi-source claim scenarios. Each: id, type, claims=[[s,r,o,source],...].
+#  agreed  - jointly consistent across sources (must NOT be flagged contested)
+#  surface - a PAIR of sources directly conflicts (pairwise-detectable)
+#  latent  - jointly inconsistent but NO two claims conflict (only deduction finds it)
+# Entities are disjoint per scenario, so merging all scenarios into one source-set is clean.
+{"id": "ag1", "type": "agreed", "claims": [["animal", "broader_than", "dog", "s1"], ["animal", "broader_than", "cat", "s2"], ["dog", "broader_than", "puppy", "s3"]]}
+{"id": "ag2", "type": "agreed", "claims": [["vehicle", "broader_than", "car", "s1"], ["car", "broader_than", "sedan", "s2"]]}
+{"id": "ag3", "type": "agreed", "claims": [["plant", "broader_than", "tree", "s1"], ["tree", "broader_than", "oak", "s2"]]}
+{"id": "ag4", "type": "agreed", "claims": [["shape", "broader_than", "polygon", "s1"], ["polygon", "broader_than", "triangle", "s2"]]}
+{"id": "ag5", "type": "agreed", "claims": [["language", "broader_than", "python", "s1"], ["python", "same_as", "cpython", "s2"]]}
+{"id": "sf1", "type": "surface", "claims": [["sfa", "broader_than", "sfb", "s1"], ["sfb", "broader_than", "sfa", "s2"]]}
+{"id": "sf2", "type": "surface", "claims": [["sfx", "same_as", "sfy", "s1"], ["sfx", "broader_than", "sfy", "s2"]]}
+{"id": "sf3", "type": "surface", "claims": [["sfu", "broader_than", "sfv", "s1"], ["sfv", "broader_than", "sfu", "s2"]]}
+{"id": "sf4", "type": "surface", "claims": [["sfm", "same_as", "sfn", "s1"], ["sfm", "broader_than", "sfn", "s2"]]}
+{"id": "sf5", "type": "surface", "claims": [["sfp", "broader_than", "sfq", "s1"], ["sfq", "broader_than", "sfp", "s2"]]}
+{"id": "lt1", "type": "latent", "claims": [["lta", "broader_than", "ltb", "s1"], ["ltb", "broader_than", "ltc", "s2"], ["ltc", "broader_than", "lta", "s3"]]}
+{"id": "lt2", "type": "latent", "claims": [["lma", "broader_than", "lmb", "s1"], ["lmb", "broader_than", "lmc", "s2"], ["lmc", "broader_than", "lmd", "s3"], ["lmd", "broader_than", "lma", "s4"]]}
+{"id": "lt3", "type": "latent", "claims": [["lnx", "same_as", "lny", "s1"], ["lny", "same_as", "lnz", "s2"], ["lnx", "broader_than", "lnz", "s3"]]}
+{"id": "lt4", "type": "latent", "claims": [["loa", "broader_than", "lob", "s1"], ["lob", "broader_than", "loc", "s2"], ["loc", "broader_than", "loa", "s3"]]}
+{"id": "lt5", "type": "latent", "claims": [["lpx", "same_as", "lpy", "s1"], ["lpy", "same_as", "lpz", "s2"], ["lpx", "broader_than", "lpz", "s3"]]}
