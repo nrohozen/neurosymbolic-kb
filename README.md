@@ -28,6 +28,9 @@ py -3.12 -m venv .venv
 
 # Milestone 2-filter (consistency filter in isolation, metrics 10-12): clingo only, offline.
 .venv\Scripts\python -m eval.run_m2_filter
+
+# Milestone 3 (domain 2 = a codebase, metrics 16-19): clingo + ast, no LLM, offline.
+.venv\Scripts\python -m eval.run_m3
 ```
 
 ## Tests
@@ -44,7 +47,7 @@ py -3.12 -m venv .venv
 | `schema/seeds.jsonl` | ~20 hand-authored **ground-truth triples** (the anchors) |
 | `src/knowledge_graph.py` | the typed triple store |
 | `src/inference_engine.py` | **clingo** wrapper: deductive closure (SAT) + contradiction (UNSAT) |
-| `src/oracle.py` | the swappable **Oracle** interface + `ExecutionOracle` + `JudgeEntailmentOracle` |
+| `src/oracle.py` | the swappable **Oracle** interface + `ExecutionOracle` + `JudgeEntailmentOracle` + `AstOracle` |
 | `src/reference_impls.py` | comparison-counting reference algorithms the execution oracle runs |
 | `src/judge_ensemble.py` | **LLM-as-judge** ensemble over Ollama (injectable transport) |
 | `src/relation_extraction.py` | LLM **relation extraction** at the boundary (injectable transport) |
@@ -56,10 +59,14 @@ py -3.12 -m venv .venv
 | `eval/m2_corpus.jsonl` | hand-labeled extraction corpus: source texts + gold triples |
 | `eval/run_m2_filter.py` | computes M2-filter metrics 10–12 (filter in isolation: catch rate, false-drop, precision lift) |
 | `eval/m2_filter_cases.jsonl` | labeled candidate triples (true / contradictory / consistent-error) with honesty meta-test |
+| `schema/code.lp` | domain-2 schema: call/import/inherit closures + inheritance-cycle & layering constraints |
+| `src/code_extraction.py` | deterministic **AST** fact extractor (`ast`) -> typed triples |
+| `eval/run_m3.py` | computes M3 domain-2 metrics 16–19 (swappability, contradiction recall, reachability, false-contradiction) |
+| `eval/m3_cases.jsonl` + `eval/m3_fixture/` | reachability/contradiction gold + a fixture codebase with a known structure |
 
-> Status: **M1 built + passing** (metrics 2–5 GO). **M2 (extraction path)** — raw P/R =
-> 0.59/0.59 (MID); errors were surface-form, not reasoning. **M2-filter** (consistency filter
-> in isolation) — metrics 10–12 GO (catch 1.00, false-drop 0.00, lift +0.30), ceiling held.
-> **M2.1 (canonicalization) built + passing** — entity linking + controlled vocab lifts P/R to
-> **0.82 / 0.78** (metrics 13/14 GO; idempotence 15 = 1.00). Residual bottleneck is now
-> structural extraction faithfulness. See the RESULT blocks in DIRECTION.md for full findings.
+> Status: **M1** (A&DS deductive core) metrics 2–5 GO. **M2/M2.1** (extraction path) — P/R
+> 0.59→**0.82/0.78** after canonicalization (13/14 GO). **M2-filter** — 10–12 GO. **M3
+> (domain 2 = a codebase) built + passing** — metrics 16–19 all GO: **swappability = 0 core
+> diffs**, code-contradiction recall 1.00, reachability 1.00 (engine closure == AstOracle
+> BFS), false-contradiction 0.00; 313 real facts extracted, layering rule holds. The deductive
+> genome is proven portable across a domain *and* an oracle change. See DIRECTION.md RESULT blocks.

@@ -246,6 +246,24 @@ The load-bearing architectural bet (Milestone 0): moving domains = **author a ne
 
 **Kill criterion.** 16 ≠ 0 → the seam leaked: the whole architectural bet fails for now — report *exactly* what forced the change rather than papering over it. 17 < 0.60 or 18 < 0.50 → the deductive core does not transfer. 19 > 0.25 → the code schema is over-strict. Clearing 16–19 = the engine is proven portable across a domain *and* an oracle change — the genome is not A&DS-specific.
 
+> **RESULT — M3 run (2026-06-29), clingo only (no LLM), `ast` extraction over this repo:**
+> metric 16 (swappability) = **0 diffs** in engine/KG/filter/canon, metric 17 (code
+> contradiction recall) = **1.00** (11/11 planted inheritance cycles + layering violations),
+> metric 18 (reachability accuracy) = **1.00** (16/16 vs gold, and the engine's ASP closure
+> agrees with the independent `AstOracle` BFS on **1.00** of pairs), metric 19
+> (false-contradiction) = **0.00** → **16–19 all GO.**
+> Extraction-at-scale: **313 facts** pulled from the real `src/` + `eval/` tree, all
+> deductively consistent — the dogfooded layering rule (`src/` must not import `eval/`)
+> *holds in reality*. The whole new domain is a new `schema/code.lp` + a new `AstOracle`
+> (registered behind the unchanged `Oracle` interface) + a deterministic AST extractor; the
+> engine, typed triple store, contradiction logic, and canonicalizer were reused **byte-for-
+> byte**. **The swappability bet is confirmed — the genome is not A&DS-specific.**
+>
+> Honest bounds: this first cut is deterministic (no LLM) and the call graph is resolved by
+> *unique simple name* (ambiguous/dynamic calls are conservatively skipped), so reachability
+> is exact only on the unambiguous subgraph. LLM extraction-at-scale, cross-artifact
+> correspondence, and intent-extracted-from-docs are **M3.1** (next), not claimed here.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
