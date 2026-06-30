@@ -43,6 +43,9 @@ py -3.12 -m venv .venv
 
 # Milestone 5.2 (probe fix on held-out set, metrics 34-37): 35-37 need Ollama.
 .venv\Scripts\python -m eval.run_m5_2
+
+# Milestone 6 (domain 5 = open/contested knowledge, metrics 38-42): clingo only, offline.
+.venv\Scripts\python -m eval.run_m6
 ```
 
 ## Tests
@@ -64,6 +67,7 @@ py -3.12 -m venv .venv
 | `src/judge_ensemble.py` | **LLM-as-judge** ensemble over Ollama (injectable transport + claim-text) |
 | `src/belief_revision.py` | **AGM belief revision** by epistemic entrenchment (pure fn over triples) |
 | `src/calibration.py` | **calibrated abstention** (TRUE/FALSE/CONTESTED) via agreement + negation-consistency |
+| `src/source_reconciliation.py` | **multi-source reconciliation**: MUS-localized conflicts, represent (not resolve) disagreement |
 | `src/relation_extraction.py` | LLM **relation extraction** at the boundary (injectable transport) |
 | `src/extraction_filter.py` | **deductive consistency filter**: solver vets extracted triples, zero LLM calls |
 | `src/canonicalization.py` | **entity linking + controlled-vocabulary** normalization of extracted triples |
@@ -87,6 +91,8 @@ py -3.12 -m venv .venv
 | `eval/m5_*.jsonl` | CS axioms + consensus-labeled claims + designed belief-revision scenarios |
 | `eval/run_m5_1.py` + `eval/m5_contested.jsonl` | M5.1 calibrated-abstention metrics 30–33 + settled/contested calibration set |
 | `eval/run_m5_2.py` + `eval/m5_contested_holdout.jsonl` | M5.2 probe-fix re-test (metrics 34–37) on a held-out set |
+| `schema/open.lp` | domain-5 schema: broader_than order + same_as equivalence + disjointness |
+| `eval/run_m6.py` + `eval/m6_sources.jsonl` | M6 domain-5 metrics 38–42 + multi-source agreed/surface/latent scenarios |
 
 > Status: **M1** (A&DS core) 2–5 GO. **M2/M2.1** (extraction) — P/R 0.59→**0.82/0.78** after
 > canonicalization. **M2-filter** — 10–12 GO. **M3 (codebase)** — 16–19 GO. **M4 (homelab/
@@ -100,5 +106,10 @@ py -3.12 -m venv .venv
 > them), so the anti-graveyard guard isn't earned yet. **M5.2 (probe fix, held-out set)**
 > confirmed both predictions: the fix cut over-abstention 0.62→0.38 (the bug was real), but
 > contested-abstention collapsed to 0.17 — **self-signals from one overconfident model family
-> can't detect contestedness; it needs external source disagreement (→ domain 5).** See
-> DIRECTION.md RESULT blocks.
+> can't detect contestedness; it needs external source disagreement (→ domain 5).** **M6
+> (domain 5 = open/contested knowledge) built + passing** — metrics 38–42 all GO: deduction
+> catches **100%** of latent (multi-source) conflicts vs **0%** for the pairwise baseline,
+> faithful representation 1.00 (disagreement represented, never resolved), 0 core diffs.
+> **Curriculum complete: the deductive genome spans all five domains and every oracle strength
+> (execution → AST → live-state → weak/judge → none/conflicting-sources) with zero core
+> changes.** See DIRECTION.md RESULT blocks.

@@ -471,6 +471,24 @@ The last and hardest domain: no reliable oracle, conflicting sources (Tilda's gr
 
 **Kill criterion.** 38 ≠ 0 → seam leaked. 39 < 0.60 → can't detect source disagreement. 40 < 0.60 → deduction gives no advantage over surface comparison (the neurosymbolic claim fails here). 41 < 1.00 → it drops or picks a side (graveyard behavior returns — the one thing domain 5 must not do). 42 > 0.25 → over-flags agreement. Clearing 38–42 closes the curriculum: the genome spans all five domains, and the weak/no-oracle end is handled by *representing* disagreement, not faking resolution.
 
+> **RESULT — M6 run (2026-06-29), clingo only (no LLM), 15 multi-source scenarios — all GO:**
+> metric 38 (swappability) = **0 diffs**, 39 (disagreement recall) = **1.00** (10/10 planted
+> conflicts), 40 (latent recall) = **1.00** (5/5 latent, deductive) **vs surface-baseline
+> 0.00** — the neurosymbolic advantage is total: structure surfaces every latent
+> (3+-source) disagreement that pairwise comparison misses, 41 (faithful representation) =
+> **1.00** (every contested cluster keeps all conflicting positions + sources; nothing
+> resolved or dropped), 42 (false-contestation) = **0.00** → **38–42 all GO.**
+> Domain 5 is handled the way M5.2 said it had to be: contestedness comes from **external
+> source disagreement**, computed deterministically; conflicts are **represented** (a
+> `Reconciliation{agreed, contested[]}`) rather than forced to a resolution — the
+> anti-Tilda-graveyard, finally earned. The new domain is a new `schema/open.lp` + a new
+> `source_reconciliation.py` (deletion-based MUS localization), with the engine, triple
+> store, contradiction logic, canonicalizer, belief-revision, and calibration all reused
+> **byte-for-byte**. **The curriculum is complete: the deductive genome spans all five
+> domains and every oracle strength (execution → AST → live-state → weak/judge → none/
+> conflicting-sources), with zero core changes throughout.** Deferred to M6.1: LLM
+> source-credibility weighting and word-sense/ambiguity resolution.
+
 ## Later increments (sketch only — do NOT build yet)
 
 - LLM-as-judge ensemble as boundary tie-breaker; NLI grounding/entailment check.
