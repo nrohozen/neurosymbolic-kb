@@ -1,0 +1,20 @@
+# M5 (domain 4) consensus-labeled claims.
+#  kind=derivable    - the deductive layer can settle it from the seeds (entailed = true,
+#                      or inconsistent-with-seeds = false); should be answered with ZERO LLM
+#  kind=nonderivable - deduction is undecided (consistent but not entailed); the weak oracle
+#                      (judge ensemble) must opine. gold = reference consensus.
+{"s": "deep_learning", "r": "subfield_of", "o": "artificial_intelligence", "kind": "derivable", "gold": true}
+{"s": "deep_learning", "r": "subfield_of", "o": "computer_science", "kind": "derivable", "gold": true}
+{"s": "reinforcement_learning", "r": "subfield_of", "o": "computer_science", "kind": "derivable", "gold": true}
+{"s": "nlp", "r": "subfield_of", "o": "computer_science", "kind": "derivable", "gold": true}
+{"s": "supervised_learning", "r": "subsumes", "o": "binary_classification", "kind": "derivable", "gold": true}
+{"s": "artificial_intelligence", "r": "subfield_of", "o": "deep_learning", "kind": "derivable", "gold": false}
+{"s": "machine_learning", "r": "subfield_of", "o": "deep_learning", "kind": "derivable", "gold": false}
+{"s": "computer_science", "r": "subfield_of", "o": "artificial_intelligence", "kind": "derivable", "gold": false}
+{"s": "binary_classification", "r": "subsumes", "o": "supervised_learning", "kind": "derivable", "gold": false}
+{"s": "graph_theory", "r": "subfield_of", "o": "mathematics", "kind": "nonderivable", "gold": true}
+{"s": "quantum_computing", "r": "subfield_of", "o": "computer_science", "kind": "nonderivable", "gold": true}
+{"s": "distributed_systems", "r": "subfield_of", "o": "computer_science", "kind": "nonderivable", "gold": true}
+{"s": "compilers", "r": "subfield_of", "o": "operating_systems", "kind": "nonderivable", "gold": false}
+{"s": "databases", "r": "subfield_of", "o": "artificial_intelligence", "kind": "nonderivable", "gold": false}
+{"s": "html", "r": "subfield_of", "o": "artificial_intelligence", "kind": "nonderivable", "gold": false}

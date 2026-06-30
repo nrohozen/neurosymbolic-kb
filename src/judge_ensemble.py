@@ -46,14 +46,18 @@ class JudgeEnsemble:
         models: Sequence[str] = ("qwen2.5:7b", "gemma2:9b"),
         host: str = "http://localhost:11434",
         transport: Transport | None = None,
+        claim_text: Callable[["Triple"], str] | None = None,
     ) -> None:
         self.models = list(models)
         self.host = host.rstrip("/")
         self._transport = transport or _urllib_transport
+        # how to phrase a triple as a yes/no question; default is the domain-1 has_property
+        # wording. Domains with other relations (e.g. subfield_of) inject their own.
+        self._claim_text = claim_text or _claim_text
 
     def _score_one(self, model: str, triple: "Triple") -> float | None:
         prompt = (
-            _claim_text(triple)
+            self._claim_text(triple)
             + " Reply with ONLY a probability between 0 and 1 that it is true."
         )
         payload = {

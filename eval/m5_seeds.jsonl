@@ -1,0 +1,10 @@
+{"s": "machine_learning", "r": "subfield_of", "o": "artificial_intelligence"}
+{"s": "deep_learning", "r": "subfield_of", "o": "machine_learning"}
+{"s": "reinforcement_learning", "r": "subfield_of", "o": "machine_learning"}
+{"s": "nlp", "r": "subfield_of", "o": "artificial_intelligence"}
+{"s": "computer_vision", "r": "subfield_of", "o": "artificial_intelligence"}
+{"s": "artificial_intelligence", "r": "subfield_of", "o": "computer_science"}
+{"s": "algorithms", "r": "subfield_of", "o": "computer_science"}
+{"s": "cryptography", "r": "subfield_of", "o": "computer_science"}
+{"s": "supervised_learning", "r": "subsumes", "o": "classification"}
+{"s": "classification", "r": "subsumes", "o": "binary_classification"}

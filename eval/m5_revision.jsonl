@@ -1,0 +1,13 @@
+# M5 belief-revision scenarios. Each: a consistent `accepted` set + confidences, a
+# `candidate` + confidence, and `gold_remain` = the (s,r,o) that should survive a correct
+# AGM-by-entrenchment revision. Triples written [s, r, o, confidence].
+{"accepted": [["ml", "subfield_of", "ai", 0.9]], "candidate": ["nlp", "subfield_of", "ai", 0.8], "gold_remain": [["ml", "subfield_of", "ai"], ["nlp", "subfield_of", "ai"]]}
+{"accepted": [["ml", "subfield_of", "ai", 0.9]], "candidate": ["ai", "subfield_of", "ml", 0.2], "gold_remain": [["ml", "subfield_of", "ai"]]}
+{"accepted": [["ml", "subfield_of", "ai", 0.7]], "candidate": ["ai", "subfield_of", "ml", 0.7], "gold_remain": [["ml", "subfield_of", "ai"]]}
+{"accepted": [["ai", "subfield_of", "ml", 0.2]], "candidate": ["ml", "subfield_of", "ai", 0.95], "gold_remain": [["ml", "subfield_of", "ai"]]}
+{"accepted": [["a", "subfield_of", "b", 0.9], ["b", "subfield_of", "c", 0.4]], "candidate": ["c", "subfield_of", "a", 0.95], "gold_remain": [["a", "subfield_of", "b"], ["c", "subfield_of", "a"]]}
+{"accepted": [["a", "subfield_of", "b", 0.9], ["b", "subfield_of", "c", 0.8]], "candidate": ["c", "subfield_of", "a", 0.3], "gold_remain": [["a", "subfield_of", "b"], ["b", "subfield_of", "c"]]}
+{"accepted": [["x", "subsumes", "y", 0.9]], "candidate": ["y", "subsumes", "x", 0.4], "gold_remain": [["x", "subsumes", "y"]]}
+{"accepted": [["y", "subsumes", "x", 0.3]], "candidate": ["x", "subsumes", "y", 0.9], "gold_remain": [["x", "subsumes", "y"]]}
+{"accepted": [["p", "subsumes", "q", 0.8]], "candidate": ["q", "subsumes", "r", 0.7], "gold_remain": [["p", "subsumes", "q"], ["q", "subsumes", "r"]]}
+{"accepted": [["a", "subfield_of", "b", 0.3], ["c", "subfield_of", "d", 0.9]], "candidate": ["b", "subfield_of", "a", 0.6], "gold_remain": [["c", "subfield_of", "d"], ["b", "subfield_of", "a"]]}
