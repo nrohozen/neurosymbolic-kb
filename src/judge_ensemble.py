@@ -79,9 +79,14 @@ class JudgeEnsemble:
         except ValueError:
             return None
 
+    def scores(self, triple: "Triple") -> list[float]:
+        """Per-model scores with failures dropped — exposes the ensemble spread, which the
+        calibration layer uses to gate on agreement (self-consistency)."""
+        return [s for s in (self._score_one(m, triple) for m in self.models) if s is not None]
+
     def score(self, triple: "Triple") -> float | None:
         """Average the seated models' scores; None if no model produced a usable score."""
-        scores = [s for s in (self._score_one(m, triple) for m in self.models) if s is not None]
+        scores = self.scores(triple)
         if not scores:
             return None
         return sum(scores) / len(scores)
