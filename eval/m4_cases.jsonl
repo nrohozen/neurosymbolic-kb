@@ -1,0 +1,19 @@
+# M4 (domain 3) held-out cases.
+#  drift      - desired vs observed disagree; the engine must derive a drift atom
+#  consistent - desired == observed (or no counterpart); must NOT flag drift
+{"type": "drift", "facts": [["pihole.secondary_dns", "desired", "10.0.0.53"], ["pihole.secondary_dns", "observed", "1.1.1.1"]], "note": "split-horizon DNS: public secondary can't resolve internal names"}
+{"type": "drift", "facts": [["proxmox.guest.api.status", "desired", "running"], ["proxmox.guest.api.status", "observed", "stopped"]], "note": "control-plane down"}
+{"type": "drift", "facts": [["proxmox.guest.downloads.status", "desired", "running"], ["proxmox.guest.downloads.status", "observed", "stopped"]]}
+{"type": "drift", "facts": [["npm.proxy.media.example.foo.forward", "desired", "10.0.0.41:8080"], ["npm.proxy.media.example.foo.forward", "observed", "10.0.0.99:8080"]], "note": "proxy points at wrong upstream"}
+{"type": "drift", "facts": [["npm.proxy.downloads.example.foo.enabled", "desired", "true"], ["npm.proxy.downloads.example.foo.enabled", "observed", "false"]], "note": "host disabled"}
+{"type": "drift", "facts": [["pihole.dns.media.lan", "desired", "10.0.0.41"], ["pihole.dns.media.lan", "observed", "10.0.0.51"]], "note": "stale A record"}
+{"type": "drift", "facts": [["proxmox.guest.gameserver.status", "desired", "running"], ["proxmox.guest.gameserver.status", "observed", "stopped"]]}
+{"type": "drift", "facts": [["npm.proxy.api.example.foo.forward", "desired", "10.0.0.12:443"], ["npm.proxy.api.example.foo.forward", "observed", "10.0.0.12:80"]], "note": "downgraded to http"}
+{"type": "drift", "facts": [["pihole.dns.downloads.lan", "desired", "10.0.0.43"], ["pihole.dns.downloads.lan", "observed", "10.0.0.44"]]}
+{"type": "drift", "facts": [["npm.proxy.api.example.foo.enabled", "desired", "true"], ["npm.proxy.api.example.foo.enabled", "observed", "false"]]}
+{"type": "drift", "facts": [["proxmox.guest.node2_media.status", "desired", "running"], ["proxmox.guest.node2_media.status", "observed", "stopped"]]}
+{"type": "consistent", "facts": [["pihole.secondary_dns", "desired", "10.0.0.53"], ["pihole.secondary_dns", "observed", "10.0.0.53"]]}
+{"type": "consistent", "facts": [["proxmox.guest.api.status", "desired", "running"], ["proxmox.guest.api.status", "observed", "running"]]}
+{"type": "consistent", "facts": [["npm.proxy.media.example.foo.forward", "desired", "10.0.0.41:8080"], ["npm.proxy.media.example.foo.forward", "observed", "10.0.0.41:8080"]]}
+{"type": "consistent", "facts": [["pihole.dns.downloads.lan", "observed", "10.0.0.43"]]}
+{"type": "consistent", "facts": [["proxmox.guest.gameserver.status", "desired", "running"], ["proxmox.guest.gameserver.status", "observed", "running"]]}

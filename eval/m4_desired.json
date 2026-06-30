@@ -1,0 +1,10 @@
+{
+  "pihole.secondary_dns": "10.0.0.53",
+  "proxmox.guest.api.status": "running",
+  "proxmox.guest.node2_media.status": "running",
+  "proxmox.guest.downloads.status": "running",
+  "proxmox.guest.gameserver.status": "running",
+  "npm.proxy.media.example.foo.enabled": "true",
+  "npm.proxy.api.example.foo.enabled": "true",
+  "npm.proxy.media.example.foo.forward": "10.0.0.41:8080"
+}
