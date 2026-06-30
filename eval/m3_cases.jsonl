@@ -1,0 +1,36 @@
+# M3 (domain 2) held-out cases.
+#  reach        - reachability question over the fixture call graph (gold yes/no)
+#  contradiction- self-contained planted code violation; gold_unsat = should be UNSAT
+#  consistent   - clean code facts that must NOT be flagged (false-contradiction control)
+{"type": "reach", "a": "eval.m3_fixture.app.main", "b": "eval.m3_fixture.app.handle", "gold": true}
+{"type": "reach", "a": "eval.m3_fixture.app.main", "b": "eval.m3_fixture.app.validate", "gold": true}
+{"type": "reach", "a": "eval.m3_fixture.app.main", "b": "eval.m3_fixture.app.save", "gold": true}
+{"type": "reach", "a": "eval.m3_fixture.app.main", "b": "eval.m3_fixture.util.normalize", "gold": true}
+{"type": "reach", "a": "eval.m3_fixture.app.main", "b": "eval.m3_fixture.util.write", "gold": true}
+{"type": "reach", "a": "eval.m3_fixture.app.handle", "b": "eval.m3_fixture.util.normalize", "gold": true}
+{"type": "reach", "a": "eval.m3_fixture.app.handle", "b": "eval.m3_fixture.util.write", "gold": true}
+{"type": "reach", "a": "eval.m3_fixture.app.validate", "b": "eval.m3_fixture.util.normalize", "gold": true}
+{"type": "reach", "a": "eval.m3_fixture.app.save", "b": "eval.m3_fixture.util.write", "gold": true}
+{"type": "reach", "a": "eval.m3_fixture.util.write", "b": "eval.m3_fixture.app.main", "gold": false}
+{"type": "reach", "a": "eval.m3_fixture.util.normalize", "b": "eval.m3_fixture.app.handle", "gold": false}
+{"type": "reach", "a": "eval.m3_fixture.app.validate", "b": "eval.m3_fixture.app.save", "gold": false}
+{"type": "reach", "a": "eval.m3_fixture.app.save", "b": "eval.m3_fixture.app.validate", "gold": false}
+{"type": "reach", "a": "eval.m3_fixture.app.handle", "b": "eval.m3_fixture.app.main", "gold": false}
+{"type": "reach", "a": "eval.m3_fixture.util.normalize", "b": "eval.m3_fixture.util.write", "gold": false}
+{"type": "reach", "a": "eval.m3_fixture.app.save", "b": "eval.m3_fixture.util.normalize", "gold": false}
+{"type": "contradiction", "facts": [["a", "inherits", "b"], ["b", "inherits", "a"]], "note": "2-cycle"}
+{"type": "contradiction", "facts": [["c", "inherits", "c"]], "note": "self-inheritance"}
+{"type": "contradiction", "facts": [["p", "inherits", "q"], ["q", "inherits", "r"], ["r", "inherits", "p"]], "note": "3-cycle"}
+{"type": "contradiction", "facts": [["w", "inherits", "v"], ["v", "inherits", "w"]], "note": "2-cycle"}
+{"type": "contradiction", "facts": [["base", "inherits", "leaf"], ["leaf", "inherits", "mid"], ["mid", "inherits", "base"]], "note": "3-cycle"}
+{"type": "contradiction", "facts": [["m1", "imports", "m2"], ["m1", "layer", "core"], ["m2", "layer", "harness"]], "note": "core imports harness"}
+{"type": "contradiction", "facts": [["m1", "imports", "mid"], ["mid", "imports", "m2"], ["m1", "layer", "core"], ["m2", "layer", "harness"]], "note": "core -> harness transitively"}
+{"type": "contradiction", "facts": [["srcx", "imports", "evaly"], ["srcx", "layer", "core"], ["evaly", "layer", "harness"]], "note": "core imports harness"}
+{"type": "contradiction", "facts": [["core1", "imports", "core2"], ["core2", "imports", "harn"], ["core1", "layer", "core"], ["core2", "layer", "core"], ["harn", "layer", "harness"]], "note": "transitive via core2"}
+{"type": "contradiction", "facts": [["a1", "imports", "b1"], ["a1", "layer", "core"], ["b1", "layer", "harness"]], "note": "core imports harness"}
+{"type": "contradiction", "facts": [["m", "inherits", "n"], ["n", "inherits", "m"]], "note": "2-cycle"}
+{"type": "consistent", "facts": [["a", "inherits", "b"], ["b", "inherits", "c"]]}
+{"type": "consistent", "facts": [["harn", "imports", "core"], ["harn", "layer", "harness"], ["core", "layer", "core"]]}
+{"type": "consistent", "facts": [["m1", "imports", "m2"], ["m1", "layer", "core"], ["m2", "layer", "core"]]}
+{"type": "consistent", "facts": [["f", "calls", "g"], ["g", "calls", "h"]]}
+{"type": "consistent", "facts": [["c1", "inherits", "c2"], ["c3", "inherits", "c2"]]}
