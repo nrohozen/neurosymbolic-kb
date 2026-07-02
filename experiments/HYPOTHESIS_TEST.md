@@ -156,6 +156,11 @@ If any box is unchecked, it is a shadow. Abort and fix the design, do not run.
 
 ## 9. Open decisions (iterate these — fill in / argue each pass)
 
+> **Update 2026-07-01:** items 1, 2, 6, and the Phase-0 slice of 4 are **DECIDED** in
+> `experiments/PHASE0.md` (sizes on the box; `issubclass` over a 127-class stdlib
+> inventory with computed virtual-edge completion; forced-choice with randomized letter
+> assignment). Items 3, 5, and 7 stay open — they bind at Phase 1/2, not Phase 0.
+
 1. Which local model sizes are actually pullable on the GPU box? (Determines the `s` axis.)
 2. Final domain: Python `issubclass` vs WordNet vs other. Does `issubclass` have size dynamic
    range down to 0.5–1.5B? (Phase 0 answers this.)
