@@ -1,5 +1,18 @@
 # Results — a consolidated synthesis (M1–M6)
 
+> **STATUS (2026-07-01): superseded as a thesis test — see `experiments/HYPOTHESIS_TEST.md`.**
+> M1–M6 validated the *infrastructure* (the LLM↔solver seam, the swappable oracle, the
+> falsification workflow) and produced real findings (most importantly the M5.1/M5.2
+> self-signal negative). But its GO metrics were scored against schemas, planted errors, and
+> gold sets **we authored** — near-tautologies that measure the solver working as configured,
+> not the thesis. Two structural flaws, named plainly: (a) grader = author everywhere
+> (no external ground truth); (b) no parametric baseline — structure never competed against a
+> monolith except M5's +0.20 on 10 hand-picked claims. The thesis itself ("small frozen base
+> + external composition beats a large monolith") is tested by the pre-registered protocol in
+> `experiments/HYPOTHESIS_TEST.md` (Phase 0 pilot: `python -m experiments.run_phase0`, see
+> `experiments/PHASE0.md`). Read everything below as **plumbing validation + lessons**, not
+> as evidence for the bet.
+
 A one-page summary of the five-domain curriculum. Per-milestone detail (pre-committed
 metrics, kill criteria, RESULT blocks) lives in **`DIRECTION.md`**; this file is the
 executive view. Re-run everything with `python -m eval.run_all`.
@@ -52,12 +65,17 @@ That is the falsification discipline (L3) doing its job: the negative result was
 
 ## Bottom line
 
-The core thesis is validated end-to-end: a small frozen base at the boundary + a
-non-parametric knowledge graph + a deductive engine spans **all five domains and every
-oracle strength** (execution → AST → live-state → weak/judge → none/conflicting-sources),
-with zero changes to the reasoning core. Deduction supplies cheap, reliable elimination
-power that a parametric model alone does not — strongest exactly where ground truth is
-scarce.
+**What M1–M6 established:** the architecture is buildable, cheap, and portable — a
+non-parametric knowledge graph + a deductive engine + a small frozen base at the boundary
+runs across all five domains and every oracle strength with zero changes to the reasoning
+core, and the falsification workflow (pre-commit, kill bars, honest negatives) works.
+
+**What it did not establish:** that deductive structure beats a parametric model anywhere
+it wasn't designed to win. The gold sets were self-authored, the planted errors were
+schema-shaped by construction, and the only head-to-head against a monolith was M5's +0.20
+on 10 claims with one local judge. The thesis is therefore **open, not validated** — the
+honest test (external computed ground truth, monolith baseline, model-size sweep,
+pre-registered kill criteria) is `experiments/HYPOTHESIS_TEST.md`.
 
 **Honest bounds.** Schemas and seed/claim sets are small and hand-authored; the live-judge
 magnitudes (M5 lift, the calibration numbers) are local-model-dependent (the *signs* are the

@@ -100,6 +100,14 @@ py -3.12 -m venv .venv
 | `eval/run_all.py` | runs every milestone scorecard M1–M6 in order |
 | `RESULTS.md` | consolidated one-page synthesis across all milestones |
 
+> **Status update (2026-07-01): the milestone record below is infrastructure validation,
+> not a thesis test.** Gold sets, schemas, and planted errors were self-authored (grader =
+> author) and no parametric baseline was run, so the GO metrics are near-tautological — see
+> the reframe at the top of `RESULTS.md`. The honest, pre-registered thesis test lives in
+> `experiments/HYPOTHESIS_TEST.md`; its Phase 0 pilot (does the domain have dynamic range
+> across model sizes?) is `python -m experiments.run_phase0` (pre-registration:
+> `experiments/PHASE0.md`).
+
 > Status: **M1** (A&DS core) 2–5 GO. **M2/M2.1** (extraction) — P/R 0.59→**0.82/0.78** after
 > canonicalization. **M2-filter** — 10–12 GO. **M3 (codebase)** — 16–19 GO. **M4 (homelab/
 > temporal oracle)** — 20–24 GO. **M5 (domain 4 = CS-as-a-field, the WEAK oracle) built +
