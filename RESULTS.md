@@ -8,10 +8,12 @@
 > not the thesis. Two structural flaws, named plainly: (a) grader = author everywhere
 > (no external ground truth); (b) no parametric baseline — structure never competed against a
 > monolith except M5's +0.20 on 10 hand-picked claims. The thesis itself ("small frozen base
-> + external composition beats a large monolith") is tested by the pre-registered protocol in
-> `experiments/HYPOTHESIS_TEST.md` (Phase 0 pilot: `python -m experiments.run_phase0`, see
-> `experiments/PHASE0.md`). Read everything below as **plumbing validation + lessons**, not
-> as evidence for the bet.
+> + external composition beats a large monolith") was then tested by the pre-registered
+> protocol in `experiments/HYPOTHESIS_TEST.md`, and **H1 was falsified at N=100/cell
+> (Phase 1, 2026-07-01)** — see **`FINDINGS.md`** for the writeup, including which half of
+> the thesis survived (the non-parametric store) and which did not (the solver as
+> composer). Read everything below as **plumbing validation + lessons**, not as evidence
+> for the bet.
 
 A one-page summary of the five-domain curriculum. Per-milestone detail (pre-committed
 metrics, kill criteria, RESULT blocks) lives in **`DIRECTION.md`**; this file is the

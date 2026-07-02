@@ -1,9 +1,11 @@
 # neurosymbolic-kb
 
 A research/learning vehicle. Successor to Tilda — carries its lessons, not its code or
-vocabulary. See **`DIRECTION.md`** for the thesis and per-milestone results, **`RESULTS.md`**
-for the consolidated one-page synthesis, and **`GLOSSARY.md`** for the standard-terminology
-rule (no invented terms).
+vocabulary. **Start with `FINDINGS.md`** — the skeptic-facing writeup of the completed
+hypothesis test (H1 falsified; what the falsification split apart and which half of the
+thesis survived). `DIRECTION.md` has the original thesis and per-milestone records,
+`RESULTS.md` the M1–M6 synthesis (with retraction banner), `GLOSSARY.md` the
+standard-terminology rule (no invented terms).
 
 The bet, in one line: store knowledge in a **knowledge graph**, reason over it with a
 **forward-chaining inference engine**, catch most contradictions **deductively** (zero LLM
