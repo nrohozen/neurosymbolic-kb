@@ -1,0 +1,300 @@
+{"model": "qwen2.5:0.5b", "cls": "numbers.Integral", "gold": ["numbers.Rational"], "raw": "builtins,integral,integral.base", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "StopIteration", "gold": ["Exception"], "raw": "builtins.base | object", "matched": ["object"]}
+{"model": "qwen2.5:0.5b", "cls": "float", "gold": ["object"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "set", "gold": ["object"], "raw": "builtins.base, set, frozenset", "matched": ["frozenset"]}
+{"model": "qwen2.5:0.5b", "cls": "SystemExit", "gold": ["BaseException"], "raw": "os, sys", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "BlockingIOError", "gold": ["OSError"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "MemoryError", "gold": ["Exception"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "Warning", "gold": ["Exception"], "raw": "builtinswarnings, warnings, _warnings, typing, abc, collections.abc, contextlib, functools, io, os, re, sys, threading, time, types, urllib.parse, urllib.request, urllib.error, urllib.response, urllib.stream, xml, xml.etree.ElementTree, xml.dom.minidom, xml.sax, xml.sax.handler, xml.sax.message, xml", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "UnicodeWarning", "gold": ["Warning"], "raw": "builtins. BaseException, builtins. UnicodeError, builtins. UnicodeWarning", "matched": ["BaseException", "UnicodeError"]}
+{"model": "qwen2.5:0.5b", "cls": "SyntaxWarning", "gold": ["Warning"], "raw": "builtins, sys, warnings", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "io.BufferedIOBase", "gold": ["io.IOBase"], "raw": "os, sys", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "OSError", "gold": ["Exception"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "UnicodeTranslateError", "gold": ["UnicodeError"], "raw": "builtins.base, builtins.error, UnicodeTranslateError", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "ResourceWarning", "gold": ["Warning"], "raw": "builtins.BaseException, builtins.ResourceWarning, warnings.warn, warnings.warn_with, warnings.warn_from, warnings.warn_from_exception, warnings.warn_from_module, warnings.warn_from_module, warnings.warn_from_type, warnings.warn_from_type, warnings.warn_from_value, warnings.warn_from_value, warnings.", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "collections.abc.Awaitable", "gold": ["object"], "raw": "collections.abc.Awaitable, abc.Awaitable, abc.Any, abc.BoundedSemaphore, abc.Concurrent, abc.ContextManager, abc.DummyAsyncResult, abc.ErrorHandlingCallable, abc.Generator, abc.HashedModel, abc.IOError, abc.LimitExceededException, abc.MissingResult, abc.NotImplemented, abc.NonAbortedExecutor, abc.Ob", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "IndexError", "gold": ["LookupError"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "ValueError", "gold": ["Exception"], "raw": "builtins.base, builtins.error, Exception, TypeError, ValueError", "matched": ["Exception", "TypeError"]}
+{"model": "qwen2.5:0.5b", "cls": "Exception", "gold": ["BaseException"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "NotADirectoryError", "gold": ["OSError"], "raw": "os, BaseException, FileNotFoundError", "matched": ["BaseException", "FileNotFoundError"]}
+{"model": "qwen2.5:0.5b", "cls": "int", "gold": ["object"], "raw": "builtins,int,object", "matched": ["object"]}
+{"model": "qwen2.5:0.5b", "cls": "dict", "gold": ["object"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "ConnectionRefusedError", "gold": ["ConnectionError"], "raw": "builtins.BaseException, builtins.ConnectionRefusedError", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "collections.abc.Coroutine", "gold": ["collections.abc.Awaitable"], "raw": "collections.abc.AbstractCollection, collections.abc.AsyncIterable, collections.abc.Sized, collections.abc.Sequence, collections.abc.Set, collections.abc.Tuple, collections.abc.GeneratorType, collections.abc.BoundedIterable, collections.abc.BoundedIterator, collections.abc.BoundedSequence, collection", "matched": ["collections.abc.AsyncIterable", "collections.abc.Sequence", "collections.abc.Set", "collections.abc.Sized"]}
+{"model": "qwen2.5:0.5b", "cls": "LookupError", "gold": ["Exception"], "raw": "builtins.base.LookupError", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "bool", "gold": ["int"], "raw": "builtins.bool;base.base;base.builtins.bool;base.builtins.bool", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "collections.abc.Reversible", "gold": ["collections.abc.Iterable"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "collections.abc.Collection", "gold": ["collections.abc.Container", "collections.abc.Iterable", "collections.abc.Sized"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "ExceptionGroup", "gold": ["BaseExceptionGroup", "Exception"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "OverflowError", "gold": ["ArithmeticError"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "complex", "gold": ["object"], "raw": "builtins.Complex, _complex.Complex, _complex._Complex, _complex._ComplexBase, _complex._ComplexBaseBase, _complex._ComplexBaseBaseBase, _complex._ComplexBaseBaseBase, _complex._ComplexBaseBaseBaseBase, _complex._ComplexBaseBaseBaseBaseBase", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "ChildProcessError", "gold": ["OSError"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "ProcessLookupError", "gold": ["OSError"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "UnicodeError", "gold": ["ValueError"], "raw": "builtins.base, builtins.error, UnicodeError", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "collections.abc.AsyncGenerator", "gold": ["collections.abc.AsyncIterator"], "raw": "collections.abc.AsyncGenerator, abc.Iterator, abc.Sized, abc.Sequence, abc.BoundedSequence, abc.Generator, abc.GeneratorBasedIterator, abc.Iterable, abc.Mapping, abc.Reversed, abc.Tuple, abc.Union, abc.View, abc.Zipped", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "collections.abc.MutableMapping", "gold": ["collections.abc.Mapping"], "raw": "collections.abc.MutableMapping, collections.abc.Mapping, collections.abc.SetWithCopy, collections.abc.Sequence, collections.abc.Sized, collections.abc.Iterator, collections.abc.MappingProxyType, collections.abc.BoundedMapping, collections.abc.LazySequence, collections.abc.ABCCompat, collections.abc.", "matched": ["collections.abc.Iterator", "collections.abc.Mapping", "collections.abc.Sequence", "collections.abc.Sized"]}
+{"model": "qwen2.5:0.5b", "cls": "io.TextIOBase", "gold": ["io.IOBase"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "TimeoutError", "gold": ["OSError"], "raw": "builtins.TimeoutError, builtins.TimeoutError, builtins.OverflowError, builtins.ZeroDivisionError", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "PendingDeprecationWarning", "gold": ["Warning"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "collections.abc.Container", "gold": ["object"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "IndentationError", "gold": ["SyntaxError"], "raw": "builtins. BaseException, builtins. TypeError, builtins. SyntaxError, builtins. RecursionError, builtins. OverflowError, builtins. IndexError, builtins. NameError, builtins. UnicodeDecodeError, builtins. UnicodeEncodeError, builtins. FileNotFoundError, builtins. FileExistsError, builtins. PermissionE", "matched": ["BaseException", "FileExistsError", "FileNotFoundError", "IndexError", "NameError", "OverflowError", "PermissionError", "RecursionError", "SyntaxError", "TypeError", "UnicodeDecodeError", "UnicodeEncodeError"]}
+{"model": "qwen2.5:0.5b", "cls": "bytes", "gold": ["object"], "raw": "builtins.byte, _builtin.builtins.byte, _collections.abc._bytes_, _io.buffered_, _io.binfile_, _io.file_, _io.open_, _io.readable_, _io.writable_, _io.textio_, _io.streams_, _io.unbuffered_, _io.zlib_.", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "io.UnsupportedOperation", "gold": ["OSError", "ValueError"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "TypeError", "gold": ["Exception"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "ZeroDivisionError", "gold": ["ArithmeticError"], "raw": "builtins.BaseException, builtins.DivisionByZeroError", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "numbers.Rational", "gold": ["numbers.Real"], "raw": "builtins.numbers,Rational,fractions.Fraction", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "BufferError", "gold": ["Exception"], "raw": "builtins.BaseException, builtins.BufferError", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "collections.abc.Callable", "gold": ["object"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "AssertionError", "gold": ["Exception"], "raw": "builtins.base, builtins.object, Exception, AssertionError", "matched": ["Exception"]}
+{"model": "qwen2.5:0.5b", "cls": "ConnectionError", "gold": ["OSError"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "numbers.Complex", "gold": ["numbers.Number"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "ArithmeticError", "gold": ["Exception"], "raw": "builtins.base, builtins.error, arithmetic.error", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "UserWarning", "gold": ["Warning"], "raw": "builtins.UserWarning, warnings.UserWarning", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "collections.abc.Mapping", "gold": ["collections.abc.Collection"], "raw": "collections.abc.BoundedBoundedSequence, collections.abc.Sequence, collections.abc.SetWithCopy, collections.abc.Sized, collections.abc.Tuple, collections.abc.Union, collections.abc.WritableMapping, collections.abc.XYZObject, collections.abc.YZObject, collections.abc.ZYObject", "matched": ["collections.abc.Sequence", "collections.abc.Sized"]}
+{"model": "qwen2.5:0.5b", "cls": "KeyboardInterrupt", "gold": ["BaseException"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "RuntimeError", "gold": ["Exception"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:0.5b", "cls": "FileNotFoundError", "gold": ["OSError"], "raw": "builtins.BaseException, os.Error, FileNotFoundError", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "collections.abc.ItemsView", "gold": ["collections.abc.MappingView", "collections.abc.Set"], "raw": "collections.abc.AbstractCollection, collections.abc.BoundedIterable, collections.abc.DualIterator, collections.abc.GenericIterable, collections.abc.Generator, collections.abc.Iterator, collections.abc.Sequence, collections.abc.Sized, collections.abc.Tuple, collections.abc.Union, collections.abc.View", "matched": ["collections.abc.Generator", "collections.abc.Iterator", "collections.abc.Sequence", "collections.abc.Sized"]}
+{"model": "qwen2.5:0.5b", "cls": "collections.abc.Generator", "gold": ["collections.abc.Iterator"], "raw": "collections.abc.Iterator, collections.abc.Sized, collections.abc.Sequence, collections.abc.Tuple, collections.abc.UserDict, collections.abc.Iterable, collections.abc.Generator, collections.abc.BoundedIterable, collections.abc.Mapping, collections.abc.Set, collections.abc.FrozenSet", "matched": ["collections.abc.Iterable", "collections.abc.Iterator", "collections.abc.Mapping", "collections.abc.Sequence", "collections.abc.Set", "collections.abc.Sized"]}
+{"model": "qwen2.5:0.5b", "cls": "BaseExceptionGroup", "gold": ["BaseException"], "raw": "java.lang.Throwable, java.lang.Exception, java.lang.RuntimeException", "matched": []}
+{"model": "qwen2.5:0.5b", "cls": "collections.abc.Iterable", "gold": ["object"], "raw": "<error: timed out>", "matched": null}
+{"model": "qwen2.5:1.5b", "cls": "numbers.Integral", "gold": ["numbers.Rational"], "raw": "numbers.Number, collections.abc.ABCMeta", "matched": ["numbers.Number"]}
+{"model": "qwen2.5:1.5b", "cls": "StopIteration", "gold": ["Exception"], "raw": "Exception", "matched": ["Exception"]}
+{"model": "qwen2.5:1.5b", "cls": "float", "gold": ["object"], "raw": "object", "matched": ["object"]}
+{"model": "qwen2.5:1.5b", "cls": "set", "gold": ["object"], "raw": "object", "matched": ["object"]}
+{"model": "qwen2.5:1.5b", "cls": "SystemExit", "gold": ["BaseException"], "raw": "Exception", "matched": ["Exception"]}
+{"model": "qwen2.5:1.5b", "cls": "BlockingIOError", "gold": ["OSError"], "raw": "BlockingIOError.__bases__ = (<class 'socket.error'>)", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "MemoryError", "gold": ["Exception"], "raw": "BaseException, Error", "matched": ["BaseException"]}
+{"model": "qwen2.5:1.5b", "cls": "Warning", "gold": ["Exception"], "raw": "Exception, BaseException", "matched": ["BaseException", "Exception"]}
+{"model": "qwen2.5:1.5b", "cls": "UnicodeWarning", "gold": ["Warning"], "raw": "exceptions.Warning", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "SyntaxWarning", "gold": ["Warning"], "raw": "builtin:exceptions.StandardError", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "io.BufferedIOBase", "gold": ["io.IOBase"], "raw": "io.TextIOWrapper, io.RawIOBase, io.IOBase", "matched": ["io.IOBase", "io.RawIOBase", "io.TextIOWrapper"]}
+{"model": "qwen2.5:1.5b", "cls": "OSError", "gold": ["Exception"], "raw": "Exception, BaseException", "matched": ["BaseException", "Exception"]}
+{"model": "qwen2.5:1.5b", "cls": "UnicodeTranslateError", "gold": ["UnicodeError"], "raw": "UnicodeTranslateError, UnicodeDecodeError, UnicodeEncodeError", "matched": ["UnicodeDecodeError", "UnicodeEncodeError"]}
+{"model": "qwen2.5:1.5b", "cls": "ResourceWarning", "gold": ["Warning"], "raw": "BrokenResourceWarning, ResourceWarning", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "collections.abc.Awaitable", "gold": ["object"], "raw": "collections.abc.Sequence, collections.abc.Sized", "matched": ["collections.abc.Sequence", "collections.abc.Sized"]}
+{"model": "qwen2.5:1.5b", "cls": "IndexError", "gold": ["LookupError"], "raw": "BaseException, Exception, builtins.IndexError", "matched": ["BaseException", "Exception"]}
+{"model": "qwen2.5:1.5b", "cls": "ValueError", "gold": ["Exception"], "raw": "Exception", "matched": ["Exception"]}
+{"model": "qwen2.5:1.5b", "cls": "Exception", "gold": ["BaseException"], "raw": "Exception, BaseException", "matched": ["BaseException"]}
+{"model": "qwen2.5:1.5b", "cls": "NotADirectoryError", "gold": ["OSError"], "raw": "Exception, OSError", "matched": ["Exception", "OSError"]}
+{"model": "qwen2.5:1.5b", "cls": "int", "gold": ["object"], "raw": "object", "matched": ["object"]}
+{"model": "qwen2.5:1.5b", "cls": "dict", "gold": ["object"], "raw": "dict, MutableMapping", "matched": ["collections.abc.MutableMapping"]}
+{"model": "qwen2.5:1.5b", "cls": "ConnectionRefusedError", "gold": ["ConnectionError"], "raw": "ConnectionRefusedError, OSError", "matched": ["OSError"]}
+{"model": "qwen2.5:1.5b", "cls": "collections.abc.Coroutine", "gold": ["collections.abc.Awaitable"], "raw": "collections.abc.Coroutine", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "LookupError", "gold": ["Exception"], "raw": "LookupError.__bases__ = (<class 'ValueError'>,)", "matched": ["ValueError"]}
+{"model": "qwen2.5:1.5b", "cls": "bool", "gold": ["int"], "raw": "bool, int", "matched": ["int"]}
+{"model": "qwen2.5:1.5b", "cls": "collections.abc.Reversible", "gold": ["collections.abc.Iterable"], "raw": "collections.abc.Sequence, collections.abc.Container, collections.abc.Set, collections.abc.MutableSequence, collections.abc.MutableSet", "matched": ["collections.abc.Container", "collections.abc.MutableSequence", "collections.abc.MutableSet", "collections.abc.Sequence", "collections.abc.Set"]}
+{"model": "qwen2.5:1.5b", "cls": "collections.abc.Collection", "gold": ["collections.abc.Container", "collections.abc.Iterable", "collections.abc.Sized"], "raw": "collections.abc.Sequence, collections.abc.Sized", "matched": ["collections.abc.Sequence", "collections.abc.Sized"]}
+{"model": "qwen2.5:1.5b", "cls": "ExceptionGroup", "gold": ["BaseExceptionGroup", "Exception"], "raw": "ExceptionGroup", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "OverflowError", "gold": ["ArithmeticError"], "raw": "OverflowError.__bases__ = (<class 'ValueError'>,)", "matched": ["ValueError"]}
+{"model": "qwen2.5:1.5b", "cls": "complex", "gold": ["object"], "raw": "tuple, object", "matched": ["object", "tuple"]}
+{"model": "qwen2.5:1.5b", "cls": "ChildProcessError", "gold": ["OSError"], "raw": "Exception", "matched": ["Exception"]}
+{"model": "qwen2.5:1.5b", "cls": "ProcessLookupError", "gold": ["OSError"], "raw": "ProcessLookupError.__bases__ = (<class 'ValueError'>,)", "matched": ["ValueError"]}
+{"model": "qwen2.5:1.5b", "cls": "UnicodeError", "gold": ["ValueError"], "raw": "UnicodeDecodeError, UnicodeEncodeError", "matched": ["UnicodeDecodeError", "UnicodeEncodeError"]}
+{"model": "qwen2.5:1.5b", "cls": "collections.abc.AsyncGenerator", "gold": ["collections.abc.AsyncIterator"], "raw": "collections.abc.AsyncGenerator", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "collections.abc.MutableMapping", "gold": ["collections.abc.Mapping"], "raw": "collections.abc.MutableSequence, collections.abc.Sequence", "matched": ["collections.abc.MutableSequence", "collections.abc.Sequence"]}
+{"model": "qwen2.5:1.5b", "cls": "io.TextIOBase", "gold": ["io.IOBase"], "raw": "io.BufferedIOBase, io.IOBase", "matched": ["io.BufferedIOBase", "io.IOBase"]}
+{"model": "qwen2.5:1.5b", "cls": "TimeoutError", "gold": ["OSError"], "raw": "TimeoutError.__bases__ = (<class 'socket.timeout'>,)", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "PendingDeprecationWarning", "gold": ["Warning"], "raw": "PendingDeprecationWarning.__bases__ == (<class 'warnings.PendingDeprecationWarning'>,)", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "collections.abc.Container", "gold": ["object"], "raw": "collections.abc.Sequence, collections.abc.Sized", "matched": ["collections.abc.Sequence", "collections.abc.Sized"]}
+{"model": "qwen2.5:1.5b", "cls": "IndentationError", "gold": ["SyntaxError"], "raw": "`IndentationError`, `SyntaxError`", "matched": ["SyntaxError"]}
+{"model": "qwen2.5:1.5b", "cls": "bytes", "gold": ["object"], "raw": "tuple, str", "matched": ["str", "tuple"]}
+{"model": "qwen2.5:1.5b", "cls": "io.UnsupportedOperation", "gold": ["OSError", "ValueError"], "raw": "IOBase, TextIOWrapper, RawIOBase, BufferedWriter, FileIO", "matched": ["io.BufferedWriter", "io.FileIO", "io.IOBase", "io.RawIOBase", "io.TextIOWrapper"]}
+{"model": "qwen2.5:1.5b", "cls": "TypeError", "gold": ["Exception"], "raw": "BaseException, Exception", "matched": ["BaseException", "Exception"]}
+{"model": "qwen2.5:1.5b", "cls": "ZeroDivisionError", "gold": ["ArithmeticError"], "raw": "ZeroDivisionError", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "numbers.Rational", "gold": ["numbers.Real"], "raw": "numbers.Rational.__bases__ = (<class 'fractions.Fraction'>,)", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "BufferError", "gold": ["Exception"], "raw": "BufferError, OSError", "matched": ["OSError"]}
+{"model": "qwen2.5:1.5b", "cls": "collections.abc.Callable", "gold": ["object"], "raw": "collections.abc.Sequence, collections.abc.Sized", "matched": ["collections.abc.Sequence", "collections.abc.Sized"]}
+{"model": "qwen2.5:1.5b", "cls": "AssertionError", "gold": ["Exception"], "raw": "Exception, builtins.AssertionError", "matched": ["Exception"]}
+{"model": "qwen2.5:1.5b", "cls": "ConnectionError", "gold": ["OSError"], "raw": "socket.error, urllib3.exceptions.ProtocolError", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "numbers.Complex", "gold": ["numbers.Number"], "raw": "numbers.Complex", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "ArithmeticError", "gold": ["Exception"], "raw": "ArithmeticError, FloatingPointError", "matched": ["FloatingPointError"]}
+{"model": "qwen2.5:1.5b", "cls": "UserWarning", "gold": ["Warning"], "raw": "UserWarning, DeprecationWarning, PendingDeprecationWarning, RuntimeWarning, ImportWarning, UnicodeWarning, BytesWarning, ResourceWarning", "matched": ["BytesWarning", "DeprecationWarning", "ImportWarning", "PendingDeprecationWarning", "ResourceWarning", "RuntimeWarning", "UnicodeWarning"]}
+{"model": "qwen2.5:1.5b", "cls": "collections.abc.Mapping", "gold": ["collections.abc.Collection"], "raw": "collections.abc.Mapping.__bases__ = (<class 'collections.abc.Sequence'>, <class 'collections.abc.Hashable'>)", "matched": ["collections.abc.Sequence"]}
+{"model": "qwen2.5:1.5b", "cls": "KeyboardInterrupt", "gold": ["BaseException"], "raw": "Exception", "matched": ["Exception"]}
+{"model": "qwen2.5:1.5b", "cls": "RuntimeError", "gold": ["Exception"], "raw": "Exception, BaseException", "matched": ["BaseException", "Exception"]}
+{"model": "qwen2.5:1.5b", "cls": "FileNotFoundError", "gold": ["OSError"], "raw": "Exception, OSError", "matched": ["Exception", "OSError"]}
+{"model": "qwen2.5:1.5b", "cls": "collections.abc.ItemsView", "gold": ["collections.abc.MappingView", "collections.abc.Set"], "raw": "collections.abc.ItemsView", "matched": []}
+{"model": "qwen2.5:1.5b", "cls": "collections.abc.Generator", "gold": ["collections.abc.Iterator"], "raw": "collections.abc.Sequence, collections.abc.Sized", "matched": ["collections.abc.Sequence", "collections.abc.Sized"]}
+{"model": "qwen2.5:1.5b", "cls": "BaseExceptionGroup", "gold": ["BaseException"], "raw": "BaseExceptionGroup, Exception, builtins.Exception", "matched": ["Exception"]}
+{"model": "qwen2.5:1.5b", "cls": "collections.abc.Iterable", "gold": ["object"], "raw": "collections.abc.Iterable", "matched": []}
+{"model": "qwen2.5:3b", "cls": "numbers.Integral", "gold": ["numbers.Rational"], "raw": "int", "matched": ["int"]}
+{"model": "qwen2.5:3b", "cls": "StopIteration", "gold": ["Exception"], "raw": "builtins.StopIteration", "matched": []}
+{"model": "qwen2.5:3b", "cls": "float", "gold": ["object"], "raw": "<type>", "matched": ["type"]}
+{"model": "qwen2.5:3b", "cls": "set", "gold": ["object"], "raw": "<type>", "matched": ["type"]}
+{"model": "qwen2.5:3b", "cls": "SystemExit", "gold": ["BaseException"], "raw": "(builtins.SystemExit,)", "matched": []}
+{"model": "qwen2.5:3b", "cls": "BlockingIOError", "gold": ["OSError"], "raw": "<module 'socketio'>, IOError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "MemoryError", "gold": ["Exception"], "raw": "builtins.MemoryError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "Warning", "gold": ["Exception"], "raw": "builtins.Warning", "matched": []}
+{"model": "qwen2.5:3b", "cls": "UnicodeWarning", "gold": ["Warning"], "raw": "builtins.UnicodeWarning", "matched": []}
+{"model": "qwen2.5:3b", "cls": "SyntaxWarning", "gold": ["Warning"], "raw": "builtins.SyntaxError, builtins.TypeError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "io.BufferedIOBase", "gold": ["io.IOBase"], "raw": "collections.abc.IO, collections.abc.Sized, collections.abc.Container, types.BuiltinFunctionType, types.CodeType, types.ModuleType", "matched": ["collections.abc.Container", "collections.abc.Sized"]}
+{"model": "qwen2.5:3b", "cls": "OSError", "gold": ["Exception"], "raw": "<module '__builtin__.__dict__'>.OSError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "UnicodeTranslateError", "gold": ["UnicodeError"], "raw": "builtins.TypeError, builtins.ValueError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "ResourceWarning", "gold": ["Warning"], "raw": "builtins.ResourceWarning", "matched": []}
+{"model": "qwen2.5:3b", "cls": "collections.abc.Awaitable", "gold": ["object"], "raw": "collections.abc.LazyLoader,collections.abc.Iterable,collections.abc.Sized,collections.abc.Container,collections.abc.Reversible,collections.abc.MutableSequence,collections.abc.Sequence,collections.abc.Set,collections.abc.Mapping", "matched": ["collections.abc.Container", "collections.abc.Iterable", "collections.abc.Mapping", "collections.abc.MutableSequence", "collections.abc.Reversible", "collections.abc.Sequence", "collections.abc.Set", "collections.abc.Sized"]}
+{"model": "qwen2.5:3b", "cls": "IndexError", "gold": ["LookupError"], "raw": "builtins.IndexError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "ValueError", "gold": ["Exception"], "raw": "builtins.ValueError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "Exception", "gold": ["BaseException"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:3b", "cls": "NotADirectoryError", "gold": ["OSError"], "raw": "os.error", "matched": []}
+{"model": "qwen2.5:3b", "cls": "int", "gold": ["object"], "raw": "int", "matched": []}
+{"model": "qwen2.5:3b", "cls": "dict", "gold": ["object"], "raw": "tuple", "matched": ["tuple"]}
+{"model": "qwen2.5:3b", "cls": "ConnectionRefusedError", "gold": ["ConnectionError"], "raw": "<module 'socketserver'>.SocketServer.StreamRequestHandler", "matched": []}
+{"model": "qwen2.5:3b", "cls": "collections.abc.Coroutine", "gold": ["collections.abc.Awaitable"], "raw": "collections.abc.AsyncGenerator, types.GenericMetaclass", "matched": ["collections.abc.AsyncGenerator"]}
+{"model": "qwen2.5:3b", "cls": "LookupError", "gold": ["Exception"], "raw": "builtins.LookupError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "bool", "gold": ["int"], "raw": "bool", "matched": []}
+{"model": "qwen2.5:3b", "cls": "collections.abc.Reversible", "gold": ["collections.abc.Iterable"], "raw": "collections.abc.MutableSequence,collections.abc.Sequence", "matched": ["collections.abc.MutableSequence", "collections.abc.Sequence"]}
+{"model": "qwen2.5:3b", "cls": "collections.abc.Collection", "gold": ["collections.abc.Container", "collections.abc.Iterable", "collections.abc.Sized"], "raw": "collections.abc.Sequence,collections.abc.Set,collections.abc.Mapping", "matched": ["collections.abc.Mapping", "collections.abc.Sequence", "collections.abc.Set"]}
+{"model": "qwen2.5:3b", "cls": "ExceptionGroup", "gold": ["BaseExceptionGroup", "Exception"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:3b", "cls": "OverflowError", "gold": ["ArithmeticError"], "raw": "builtins.OSError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "complex", "gold": ["object"], "raw": "(int, float)", "matched": ["float", "int"]}
+{"model": "qwen2.5:3b", "cls": "ChildProcessError", "gold": ["OSError"], "raw": "builtins.BaseException,errno", "matched": []}
+{"model": "qwen2.5:3b", "cls": "ProcessLookupError", "gold": ["OSError"], "raw": "builtins.SystemExit", "matched": []}
+{"model": "qwen2.5:3b", "cls": "UnicodeError", "gold": ["ValueError"], "raw": "builtins.TypeError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "collections.abc.AsyncGenerator", "gold": ["collections.abc.AsyncIterator"], "raw": "collections.abc.AsyncGenerator, collections.abc.GeneratorType", "matched": []}
+{"model": "qwen2.5:3b", "cls": "collections.abc.MutableMapping", "gold": ["collections.abc.Mapping"], "raw": "collections.abc.Mapping, collections.abc.Set", "matched": ["collections.abc.Mapping", "collections.abc.Set"]}
+{"model": "qwen2.5:3b", "cls": "io.TextIOBase", "gold": ["io.IOBase"], "raw": "<module 'io'>.BufferedIOBase, <module 'io'>.RawIOBase", "matched": []}
+{"model": "qwen2.5:3b", "cls": "TimeoutError", "gold": ["OSError"], "raw": "builtins.TimeoutError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "PendingDeprecationWarning", "gold": ["Warning"], "raw": "builtins.PendingDeprecationWarning", "matched": []}
+{"model": "qwen2.5:3b", "cls": "collections.abc.Container", "gold": ["object"], "raw": "tuple,object", "matched": ["object", "tuple"]}
+{"model": "qwen2.5:3b", "cls": "IndentationError", "gold": ["SyntaxError"], "raw": "builtins.TypeError, builtins.ValueError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "bytes", "gold": ["object"], "raw": "<type 'bytes'>", "matched": ["type"]}
+{"model": "qwen2.5:3b", "cls": "io.UnsupportedOperation", "gold": ["OSError", "ValueError"], "raw": "io.UnsupportedIOError, sys.Exception", "matched": []}
+{"model": "qwen2.5:3b", "cls": "TypeError", "gold": ["Exception"], "raw": "<module 'types'>, TypeError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "ZeroDivisionError", "gold": ["ArithmeticError"], "raw": "builtins.ZeroDivisionError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "numbers.Rational", "gold": ["numbers.Real"], "raw": "int, float", "matched": ["float", "int"]}
+{"model": "qwen2.5:3b", "cls": "BufferError", "gold": ["Exception"], "raw": "builtins.BufferError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "collections.abc.Callable", "gold": ["object"], "raw": "tuple, object", "matched": ["object", "tuple"]}
+{"model": "qwen2.5:3b", "cls": "AssertionError", "gold": ["Exception"], "raw": "<module '__builtin__.__builtin__'>.AssertionError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "ConnectionError", "gold": ["OSError"], "raw": "<module 'socketerror'>, ConnectionResetError", "matched": ["ConnectionResetError"]}
+{"model": "qwen2.5:3b", "cls": "numbers.Complex", "gold": ["numbers.Number"], "raw": "numbers.Real, numbers.Number", "matched": ["numbers.Number", "numbers.Real"]}
+{"model": "qwen2.5:3b", "cls": "ArithmeticError", "gold": ["Exception"], "raw": "builtins.ArithmeticError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "UserWarning", "gold": ["Warning"], "raw": "builtins.UserWarning", "matched": []}
+{"model": "qwen2.5:3b", "cls": "collections.abc.Mapping", "gold": ["collections.abc.Collection"], "raw": "collections.abc.MutableMapping, collections.abc.Mapping", "matched": ["collections.abc.MutableMapping"]}
+{"model": "qwen2.5:3b", "cls": "KeyboardInterrupt", "gold": ["BaseException"], "raw": "builtins.KeyboardInterrupt", "matched": []}
+{"model": "qwen2.5:3b", "cls": "RuntimeError", "gold": ["Exception"], "raw": "builtins.RuntimeError", "matched": []}
+{"model": "qwen2.5:3b", "cls": "FileNotFoundError", "gold": ["OSError"], "raw": "<module '__future__'.exceptions>", "matched": []}
+{"model": "qwen2.5:3b", "cls": "collections.abc.ItemsView", "gold": ["collections.abc.MappingView", "collections.abc.Set"], "raw": "collections.abc.MutableSet,collections.abc.MappingProxyType", "matched": ["collections.abc.MutableSet"]}
+{"model": "qwen2.5:3b", "cls": "collections.abc.Generator", "gold": ["collections.abc.Iterator"], "raw": "collections.abc.Iterator, types.GenericMetaclass", "matched": ["collections.abc.Iterator"]}
+{"model": "qwen2.5:3b", "cls": "BaseExceptionGroup", "gold": ["BaseException"], "raw": "builtins.BaseException", "matched": []}
+{"model": "qwen2.5:3b", "cls": "collections.abc.Iterable", "gold": ["object"], "raw": "tuple, object", "matched": ["object", "tuple"]}
+{"model": "qwen2.5:7b", "cls": "numbers.Integral", "gold": ["numbers.Rational"], "raw": "numbers.Number, abc.ABCMeta", "matched": ["abc.ABCMeta", "numbers.Number"]}
+{"model": "qwen2.5:7b", "cls": "StopIteration", "gold": ["Exception"], "raw": "collections.abc, Exception", "matched": ["Exception"]}
+{"model": "qwen2.5:7b", "cls": "float", "gold": ["object"], "raw": "builtins.object", "matched": []}
+{"model": "qwen2.5:7b", "cls": "set", "gold": ["object"], "raw": "collections.abc.Set", "matched": ["collections.abc.Set"]}
+{"model": "qwen2.5:7b", "cls": "SystemExit", "gold": ["BaseException"], "raw": "sys.exit_exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "BlockingIOError", "gold": ["OSError"], "raw": "io.IOError", "matched": []}
+{"model": "qwen2.5:7b", "cls": "MemoryError", "gold": ["Exception"], "raw": "builtins.OSError", "matched": []}
+{"model": "qwen2.5:7b", "cls": "Warning", "gold": ["Exception"], "raw": "builtins.object, warnings.Warning", "matched": []}
+{"model": "qwen2.5:7b", "cls": "UnicodeWarning", "gold": ["Warning"], "raw": "_userwarnings.BaseWarning, warnings.WarningCategory", "matched": []}
+{"model": "qwen2.5:7b", "cls": "SyntaxWarning", "gold": ["Warning"], "raw": "_userwarnings.BaseException, warnings.WarningMessage", "matched": []}
+{"model": "qwen2.5:7b", "cls": "io.BufferedIOBase", "gold": ["io.IOBase"], "raw": "io.IOBase", "matched": ["io.IOBase"]}
+{"model": "qwen2.5:7b", "cls": "OSError", "gold": ["Exception"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "UnicodeTranslateError", "gold": ["UnicodeError"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "ResourceWarning", "gold": ["Warning"], "raw": "warnings.WarningMessage", "matched": []}
+{"model": "qwen2.5:7b", "cls": "collections.abc.Awaitable", "gold": ["object"], "raw": "collections.abc.Awaitable", "matched": []}
+{"model": "qwen2.5:7b", "cls": "IndexError", "gold": ["LookupError"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "ValueError", "gold": ["Exception"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "Exception", "gold": ["BaseException"], "raw": "builtins.BaseException", "matched": []}
+{"model": "qwen2.5:7b", "cls": "NotADirectoryError", "gold": ["OSError"], "raw": "builtins.OSError", "matched": []}
+{"model": "qwen2.5:7b", "cls": "int", "gold": ["object"], "raw": "object", "matched": ["object"]}
+{"model": "qwen2.5:7b", "cls": "dict", "gold": ["object"], "raw": "collections.abc.Mapping, collections.abc.Collection", "matched": ["collections.abc.Collection", "collections.abc.Mapping"]}
+{"model": "qwen2.5:7b", "cls": "ConnectionRefusedError", "gold": ["ConnectionError"], "raw": "socket.error, OSError", "matched": ["OSError"]}
+{"model": "qwen2.5:7b", "cls": "collections.abc.Coroutine", "gold": ["collections.abc.Awaitable"], "raw": "collections.abc.Awaitable, collections.abc.CoroutineProtocol", "matched": ["collections.abc.Awaitable"]}
+{"model": "qwen2.5:7b", "cls": "LookupError", "gold": ["Exception"], "raw": "builtins.StandardError", "matched": []}
+{"model": "qwen2.5:7b", "cls": "bool", "gold": ["int"], "raw": "builtins.object", "matched": []}
+{"model": "qwen2.5:7b", "cls": "collections.abc.Reversible", "gold": ["collections.abc.Iterable"], "raw": "collections.abc.Iterator", "matched": ["collections.abc.Iterator"]}
+{"model": "qwen2.5:7b", "cls": "collections.abc.Collection", "gold": ["collections.abc.Container", "collections.abc.Iterable", "collections.abc.Sized"], "raw": "collections.abc.Sized, collections.abc.Iterable, collections.abc.Container", "matched": ["collections.abc.Container", "collections.abc.Iterable", "collections.abc.Sized"]}
+{"model": "qwen2.5:7b", "cls": "ExceptionGroup", "gold": ["BaseExceptionGroup", "Exception"], "raw": "exceptions.BaseException", "matched": []}
+{"model": "qwen2.5:7b", "cls": "OverflowError", "gold": ["ArithmeticError"], "raw": "builtins.StandardError", "matched": []}
+{"model": "qwen2.5:7b", "cls": "complex", "gold": ["object"], "raw": "complexnumbers.complex", "matched": []}
+{"model": "qwen2.5:7b", "cls": "ChildProcessError", "gold": ["OSError"], "raw": "subprocess.ChildProcessError, Exception", "matched": ["Exception"]}
+{"model": "qwen2.5:7b", "cls": "ProcessLookupError", "gold": ["OSError"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "UnicodeError", "gold": ["ValueError"], "raw": "builtins.object", "matched": []}
+{"model": "qwen2.5:7b", "cls": "collections.abc.AsyncGenerator", "gold": ["collections.abc.AsyncIterator"], "raw": "collections.abc.Awaitable, collections.abc.AsyncIterable", "matched": ["collections.abc.AsyncIterable", "collections.abc.Awaitable"]}
+{"model": "qwen2.5:7b", "cls": "collections.abc.MutableMapping", "gold": ["collections.abc.Mapping"], "raw": "collections.abc.Mapping, object", "matched": ["collections.abc.Mapping", "object"]}
+{"model": "qwen2.5:7b", "cls": "io.TextIOBase", "gold": ["io.IOBase"], "raw": "io.IOBase", "matched": ["io.IOBase"]}
+{"model": "qwen2.5:7b", "cls": "TimeoutError", "gold": ["OSError"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "PendingDeprecationWarning", "gold": ["Warning"], "raw": "UserWarning, object", "matched": ["UserWarning", "object"]}
+{"model": "qwen2.5:7b", "cls": "collections.abc.Container", "gold": ["object"], "raw": "collections.abc.Sized, collections.abc.Iterable", "matched": ["collections.abc.Iterable", "collections.abc.Sized"]}
+{"model": "qwen2.5:7b", "cls": "IndentationError", "gold": ["SyntaxError"], "raw": "builtins.BaseException, builtins.Exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "bytes", "gold": ["object"], "raw": "builtins.bytes,)", "matched": []}
+{"model": "qwen2.5:7b", "cls": "io.UnsupportedOperation", "gold": ["OSError", "ValueError"], "raw": "io.IOBase", "matched": ["io.IOBase"]}
+{"model": "qwen2.5:7b", "cls": "TypeError", "gold": ["Exception"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "ZeroDivisionError", "gold": ["ArithmeticError"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "numbers.Rational", "gold": ["numbers.Real"], "raw": "fractions.Fraction", "matched": []}
+{"model": "qwen2.5:7b", "cls": "BufferError", "gold": ["Exception"], "raw": "builtins.BaseException", "matched": []}
+{"model": "qwen2.5:7b", "cls": "collections.abc.Callable", "gold": ["object"], "raw": "collections.abc.FunctionType, collections.abc******", "matched": []}
+{"model": "qwen2.5:7b", "cls": "AssertionError", "gold": ["Exception"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "ConnectionError", "gold": ["OSError"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "numbers.Complex", "gold": ["numbers.Number"], "raw": "numbers.Real, collections.abc.Hashable", "matched": ["numbers.Real"]}
+{"model": "qwen2.5:7b", "cls": "ArithmeticError", "gold": ["Exception"], "raw": "builtins.StandardError", "matched": []}
+{"model": "qwen2.5:7b", "cls": "UserWarning", "gold": ["Warning"], "raw": "warnings.WarningMessage", "matched": []}
+{"model": "qwen2.5:7b", "cls": "collections.abc.Mapping", "gold": ["collections.abc.Collection"], "raw": "collections.abc.DictMixin", "matched": []}
+{"model": "qwen2.5:7b", "cls": "KeyboardInterrupt", "gold": ["BaseException"], "raw": "(BaseException,)", "matched": ["BaseException"]}
+{"model": "qwen2.5:7b", "cls": "RuntimeError", "gold": ["Exception"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:7b", "cls": "FileNotFoundError", "gold": ["OSError"], "raw": "builtins.IOError", "matched": []}
+{"model": "qwen2.5:7b", "cls": "collections.abc.ItemsView", "gold": ["collections.abc.MappingView", "collections.abc.Set"], "raw": "collections.abc.Sized, collections.abc.Iterable", "matched": ["collections.abc.Iterable", "collections.abc.Sized"]}
+{"model": "qwen2.5:7b", "cls": "collections.abc.Generator", "gold": ["collections.abc.Iterator"], "raw": "collections.abc.Awaitable, collections.abc.Iterable", "matched": ["collections.abc.Awaitable", "collections.abc.Iterable"]}
+{"model": "qwen2.5:7b", "cls": "BaseExceptionGroup", "gold": ["BaseException"], "raw": "exceptions.BaseException, builtins.object", "matched": []}
+{"model": "qwen2.5:7b", "cls": "collections.abc.Iterable", "gold": ["object"], "raw": "collections.abc.Container, collections.abc.Sized", "matched": ["collections.abc.Container", "collections.abc.Sized"]}
+{"model": "qwen2.5:14b", "cls": "numbers.Integral", "gold": ["numbers.Rational"], "raw": "abc.ABC, object", "matched": ["object"]}
+{"model": "qwen2.5:14b", "cls": "StopIteration", "gold": ["Exception"], "raw": "builtins.Exception", "matched": []}
+{"model": "qwen2.5:14b", "cls": "float", "gold": ["object"], "raw": "builtins.object", "matched": []}
+{"model": "qwen2.5:14b", "cls": "set", "gold": ["object"], "raw": "collections.abc.Set,builtins.object", "matched": ["collections.abc.Set"]}
+{"model": "qwen2.5:14b", "cls": "SystemExit", "gold": ["BaseException"], "raw": "BaseException, Exception", "matched": ["BaseException", "Exception"]}
+{"model": "qwen2.5:14b", "cls": "BlockingIOError", "gold": ["OSError"], "raw": "io.BlockingIOError, OSError", "matched": ["OSError"]}
+{"model": "qwen2.5:14b", "cls": "MemoryError", "gold": ["Exception"], "raw": "builtins.BaseException, builtins.Exception", "matched": []}
+{"model": "qwen2.5:14b", "cls": "Warning", "gold": ["Exception"], "raw": "Exception,.object", "matched": ["Exception"]}
+{"model": "qwen2.5:14b", "cls": "UnicodeWarning", "gold": ["Warning"], "raw": "UserWarning,Warning,Builtins.object", "matched": ["UserWarning", "Warning"]}
+{"model": "qwen2.5:14b", "cls": "SyntaxWarning", "gold": ["Warning"], "raw": "UserWarning,_warning\u67b8\u67ab\u6797", "matched": ["UserWarning"]}
+{"model": "qwen2.5:14b", "cls": "io.BufferedIOBase", "gold": ["io.IOBase"], "raw": "_io.RawIOBase,(object)", "matched": ["object"]}
+{"model": "qwen2.5:14b", "cls": "OSError", "gold": ["Exception"], "raw": "EnvironmentError,IOError", "matched": []}
+{"model": "qwen2.5:14b", "cls": "UnicodeTranslateError", "gold": ["UnicodeError"], "raw": "unicodedata_errors.UnicodeError", "matched": []}
+{"model": "qwen2.5:14b", "cls": "ResourceWarning", "gold": ["Warning"], "raw": "Warning,BaseException", "matched": ["BaseException", "Warning"]}
+{"model": "qwen2.5:14b", "cls": "collections.abc.Awaitable", "gold": ["object"], "raw": "collections.abc._Collections_ABCBase", "matched": []}
+{"model": "qwen2.5:14b", "cls": "IndexError", "gold": ["LookupError"], "raw": "Exception,BaseException", "matched": ["BaseException", "Exception"]}
+{"model": "qwen2.5:14b", "cls": "ValueError", "gold": ["Exception"], "raw": "Exception", "matched": ["Exception"]}
+{"model": "qwen2.5:14b", "cls": "Exception", "gold": ["BaseException"], "raw": "BaseException,", "matched": ["BaseException"]}
+{"model": "qwen2.5:14b", "cls": "NotADirectoryError", "gold": ["OSError"], "raw": "OSError,BlockingIOError,InterruptedError,ConnectionError,ProcessLookupError,TimeoutError", "matched": ["BlockingIOError", "ConnectionError", "InterruptedError", "OSError", "ProcessLookupError", "TimeoutError"]}
+{"model": "qwen2.5:14b", "cls": "int", "gold": ["object"], "raw": "object", "matched": ["object"]}
+{"model": "qwen2.5:14b", "cls": "dict", "gold": ["object"], "raw": "typing.Dict, collections.Mapping, collections.MutableMapping", "matched": []}
+{"model": "qwen2.5:14b", "cls": "ConnectionRefusedError", "gold": ["ConnectionError"], "raw": "builtins.OSError", "matched": []}
+{"model": "qwen2.5:14b", "cls": "collections.abc.Coroutine", "gold": ["collections.abc.Awaitable"], "raw": "collections.abc.Awaitable,abc Coroutine", "matched": ["collections.abc.Awaitable"]}
+{"model": "qwen2.5:14b", "cls": "LookupError", "gold": ["Exception"], "raw": "builtins.BaseException", "matched": []}
+{"model": "qwen2.5:14b", "cls": "bool", "gold": ["int"], "raw": "builtins.int", "matched": []}
+{"model": "qwen2.5:14b", "cls": "collections.abc.Reversible", "gold": ["collections.abc.Iterable"], "raw": "collections.abc.Iterable,abc ABCMeta", "matched": ["abc.ABCMeta", "collections.abc.Iterable"]}
+{"model": "qwen2.5:14b", "cls": "collections.abc.Collection", "gold": ["collections.abc.Container", "collections.abc.Iterable", "collections.abc.Sized"], "raw": "collections.abc.Sized,collections.abc.Iterable", "matched": ["collections.abc.Iterable", "collections.abc.Sized"]}
+{"model": "qwen2.5:14b", "cls": "ExceptionGroup", "gold": ["BaseExceptionGroup", "Exception"], "raw": "BaseException,", "matched": ["BaseException"]}
+{"model": "qwen2.5:14b", "cls": "OverflowError", "gold": ["ArithmeticError"], "raw": "builtins.ArithmeticError", "matched": []}
+{"model": "qwen2.5:14b", "cls": "complex", "gold": ["object"], "raw": "object", "matched": ["object"]}
+{"model": "qwen2.5:14b", "cls": "ChildProcessError", "gold": ["OSError"], "raw": "builtins.OSError", "matched": []}
+{"model": "qwen2.5:14b", "cls": "ProcessLookupError", "gold": ["OSError"], "raw": "ProcessLookupError.__bases__ = (OSError,),", "matched": ["OSError"]}
+{"model": "qwen2.5:14b", "cls": "UnicodeError", "gold": ["ValueError"], "raw": "SyntaxError, ValueError", "matched": ["SyntaxError", "ValueError"]}
+{"model": "qwen2.5:14b", "cls": "collections.abc.AsyncGenerator", "gold": ["collections.abc.AsyncIterator"], "raw": "collections.abc.Awaitable, collections.abc.Iterator", "matched": ["collections.abc.Awaitable", "collections.abc.Iterator"]}
+{"model": "qwen2.5:14b", "cls": "collections.abc.MutableMapping", "gold": ["collections.abc.Mapping"], "raw": "collections.abc.Mapping,abc ABCMeta", "matched": ["abc.ABCMeta", "collections.abc.Mapping"]}
+{"model": "qwen2.5:14b", "cls": "io.TextIOBase", "gold": ["io.IOBase"], "raw": "_io.IOBase", "matched": []}
+{"model": "qwen2.5:14b", "cls": "TimeoutError", "gold": ["OSError"], "raw": "BaseException, OSError", "matched": ["BaseException", "OSError"]}
+{"model": "qwen2.5:14b", "cls": "PendingDeprecationWarning", "gold": ["Warning"], "raw": "_DeprecationWarning,::_Warning,::_Exception,::_Object", "matched": []}
+{"model": "qwen2.5:14b", "cls": "collections.abc.Container", "gold": ["object"], "raw": "collections.abc.Sized,abc.Container", "matched": ["collections.abc.Sized"]}
+{"model": "qwen2.5:14b", "cls": "IndentationError", "gold": ["SyntaxError"], "raw": "SyntaxError,IndentaryError", "matched": ["SyntaxError"]}
+{"model": "qwen2.5:14b", "cls": "bytes", "gold": ["object"], "raw": "collections.abc.ByteString,typing.SupportsBytes,typing.SupportsIndex", "matched": []}
+{"model": "qwen2.5:14b", "cls": "io.UnsupportedOperation", "gold": ["OSError", "ValueError"], "raw": "Exception,IOError", "matched": ["Exception"]}
+{"model": "qwen2.5:14b", "cls": "TypeError", "gold": ["Exception"], "raw": "builtins.OldStyle, builtins.Exception", "matched": []}
+{"model": "qwen2.5:14b", "cls": "ZeroDivisionError", "gold": ["ArithmeticError"], "raw": "builtins.ArithmeticError", "matched": []}
+{"model": "qwen2.5:14b", "cls": "numbers.Rational", "gold": ["numbers.Real"], "raw": "fractions.Fraction, numbers.Real", "matched": ["numbers.Real"]}
+{"model": "qwen2.5:14b", "cls": "BufferError", "gold": ["Exception"], "raw": "BaseException,", "matched": ["BaseException"]}
+{"model": "qwen2.5:14b", "cls": "collections.abc.Callable", "gold": ["object"], "raw": "collections.abc._CallableABC,object", "matched": ["object"]}
+{"model": "qwen2.5:14b", "cls": "AssertionError", "gold": ["Exception"], "raw": "Exception", "matched": ["Exception"]}
+{"model": "qwen2.5:14b", "cls": "ConnectionError", "gold": ["OSError"], "raw": "BaseException, Exception", "matched": ["BaseException", "Exception"]}
+{"model": "qwen2.5:14b", "cls": "numbers.Complex", "gold": ["numbers.Number"], "raw": "numbers.Real, numbers.Complex", "matched": ["numbers.Real"]}
+{"model": "qwen2.5:14b", "cls": "ArithmeticError", "gold": ["Exception"], "raw": "Exception", "matched": ["Exception"]}
+{"model": "qwen2.5:14b", "cls": "UserWarning", "gold": ["Warning"], "raw": "Warning,Exception", "matched": ["Exception", "Warning"]}
+{"model": "qwen2.5:14b", "cls": "collections.abc.Mapping", "gold": ["collections.abc.Collection"], "raw": "collections.abc.Reversible,typing.Generic", "matched": ["collections.abc.Reversible"]}
+{"model": "qwen2.5:14b", "cls": "KeyboardInterrupt", "gold": ["BaseException"], "raw": "BaseException, Exception", "matched": ["BaseException", "Exception"]}
+{"model": "qwen2.5:14b", "cls": "RuntimeError", "gold": ["Exception"], "raw": "Exception", "matched": ["Exception"]}
+{"model": "qwen2.5:14b", "cls": "FileNotFoundError", "gold": ["OSError"], "raw": "_OSError,", "matched": []}
+{"model": "qwen2.5:14b", "cls": "collections.abc.ItemsView", "gold": ["collections.abc.MappingView", "collections.abc.Set"], "raw": "collections.abc.Sized,collections.abc.Iterable", "matched": ["collections.abc.Iterable", "collections.abc.Sized"]}
+{"model": "qwen2.5:14b", "cls": "collections.abc.Generator", "gold": ["collections.abc.Iterator"], "raw": "collections.abc.Iterator,generator", "matched": ["collections.abc.Iterator"]}
+{"model": "qwen2.5:14b", "cls": "BaseExceptionGroup", "gold": ["BaseException"], "raw": "builtins.BaseException", "matched": []}
+{"model": "qwen2.5:14b", "cls": "collections.abc.Iterable", "gold": ["object"], "raw": "collections.abc.Reversible,Iterableprotocols.IteratorProtocol", "matched": ["collections.abc.Reversible"]}

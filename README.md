@@ -10,17 +10,41 @@ standard-terminology rule (no invented terms).
 The bet, in one line: store knowledge in a **knowledge graph**, reason over it with a
 **forward-chaining inference engine**, catch most contradictions **deductively** (zero LLM
 calls), and spend a small **frozen base model** only at the boundary (extraction +
-tie-breaking). Domain 1 is **algorithms & data structures** — chosen because it hands you a
-*perfect, free oracle* (execution + the complexity lattice) to validate the engine against.
+tie-breaking). The result, in one line: the store helped, the solver as composer didn't,
+and the model couldn't write down the solver's facts. Details and numbers in `FINDINGS.md`.
 
 ## Setup
 
 ```powershell
 py -3.12 -m venv .venv
 .venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python -m pytest          # deterministic + offline (clingo used directly; no network)
 ```
 
-## Run the Milestone 1 scorecard
+## Reproduce the headline results
+
+Every model answer from the pre-registered runs is committed in `experiments/results/`, so
+the FINDINGS.md tables re-score from the saved answers with **no model calls**:
+
+```powershell
+# Phase 1 (the H1 test): accuracy table with Wilson CIs, cost, verdict H1_FALSIFIED.
+.venv\Scripts\python -m experiments.run_phase1
+
+# Phase 0.2 (generative extraction): verdict DEAD, re-parsed from the raw model text.
+.venv\Scripts\python -m experiments.run_phase0_2 --rescore
+```
+
+Delete a results file to re-run that phase against a local Ollama (qwen2.5; Phase 1 is
+about an hour on one consumer GPU, resumable). Pre-registrations, with thresholds committed
+before each run and RESULT blocks after, are the `experiments/PHASE*.md` files; the
+protocol is `experiments/HYPOTHESIS_TEST.md`.
+
+## Earlier milestones (M1–M6: infrastructure validation, not a thesis test)
+
+These scorecards validated the plumbing across five domains. Their gold sets were
+self-authored and they ran no parametric baseline, so read them as engineering checks; see
+the banner at the top of `RESULTS.md`. Domain 1 is **algorithms & data structures**, chosen
+because it hands you a *perfect, free oracle* (execution + the complexity lattice).
 
 ```powershell
 # deductive metrics (1, 2, 3, 5) need only clingo; metric 4 needs a local Ollama.
@@ -54,12 +78,6 @@ py -3.12 -m venv .venv
 .venv\Scripts\python -m eval.run_all
 ```
 
-## Tests
-
-```powershell
-.venv\Scripts\python -m pytest          # deterministic + offline (clingo used directly; no network)
-```
-
 ## Layout
 
 | Path | What it is (standard term) |
@@ -91,7 +109,7 @@ py -3.12 -m venv .venv
 | `src/state_extraction.py` | snapshot JSON -> `observed` triples (injectable provider) |
 | `src/staleness.py` | active-learning / staleness re-query policy + snapshot diff |
 | `eval/run_m4.py` | computes M4 domain-3 metrics 20–24 (swappability, drift recall, false-drift, active-learning) |
-| `eval/m4_*.{json,jsonl}` | synthetic homelab snapshot + desired-state intent + drift/consistent cases |
+| `eval/m4_*.{json,jsonl}` | synthetic homelab snapshot (generic names and placeholder addresses) + desired-state intent + drift/consistent cases |
 | `schema/csfield.lp` | domain-4 schema: subfield_of/subsumes strict partial orders (cycle = contradiction) |
 | `eval/run_m5.py` | computes M5 domain-4 metrics 25–29 (swappability, deductive reliability, structure lift, belief revision, consistency) |
 | `eval/m5_*.jsonl` | CS axioms + consensus-labeled claims + designed belief-revision scenarios |
@@ -129,3 +147,7 @@ py -3.12 -m venv .venv
 > **Curriculum complete: the deductive genome spans all five domains and every oracle strength
 > (execution → AST → live-state → weak/judge → none/conflicting-sources) with zero core
 > changes.** See DIRECTION.md RESULT blocks.
+
+## License
+
+MIT. See `LICENSE`.
